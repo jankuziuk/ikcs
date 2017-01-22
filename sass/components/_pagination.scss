@@ -1,0 +1,84 @@
+.pagination-wrap{
+  text-align: center;
+  margin: 30px 0 0;
+
+  .pagination{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+
+    &>a,
+    &>span{
+      display: inline-block;
+      margin-right: 10px;
+      padding: 8px 12px;
+      background: transparent;
+      text-decoration: none;
+      color: #888888;
+      border: 1px solid #888888;
+      -webkit-transition: 0.2s all linear;
+      -moz-transition: 0.2s all linear;
+      transition: 0.2s all linear;
+
+      &.current{
+        background: #222222;
+        border-color: #222222;
+        color: #FFFFFF;
+      }
+    }
+
+    .screen-reader-text{
+      display: none;
+    }
+
+    .nav-links{
+      .page-numbers{
+        display: block;
+        float: left;
+        height: 50px;
+        min-width: 50px;
+        text-align: center;
+        line-height: 50px;
+        padding: 0 5px;
+        border: 1px solid $baseDarkRedColor;
+        text-decoration: none;
+        color: $baseDarkRedColor;
+        font-weight: 600;
+        font-size: 1.5em;
+
+        & + .page-numbers{
+          border-left: 0;
+        }
+
+        &.current,
+        &:hover{
+          background: $baseDarkRedColor;
+          color: #fff;
+        }
+
+        &:first-child{
+          @include border-radius(4px 0 0 4px);
+        }
+        &:last-child{
+          @include border-radius(0 4px 4px 0);
+        }
+
+        @media (max-width: 550px) {
+          height: 45px;
+          min-width: 45px;
+          line-height: 45px;
+        }
+        @media (max-width: 450px) {
+          height: 40px;
+          min-width: 40px;
+          line-height: 40px;
+        }
+        @media (max-width: 400px) {
+          height: 36px;
+          min-width: 36px;
+          line-height: 36px;
+        }
+      }
+    }
+  }
+}

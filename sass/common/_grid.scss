@@ -1,0 +1,20 @@
+.content-wr:before,
+.content-wr:after{
+  content: " ";
+  display: table;
+}
+.content-wr:after{
+  clear: both;
+}
+
+.sidebar-left{
+  float: left;
+}
+.sidebar-right{
+  float: right;
+}
+
+.content{
+  float: left;
+  width: 100%;
+}
