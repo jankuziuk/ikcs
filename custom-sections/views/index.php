@@ -82,7 +82,6 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <div notifybar style="position:absolute;top:0;right:0"></div>
                         </div>
                     </div>
                 </div>

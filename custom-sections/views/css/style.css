@@ -130,6 +130,10 @@
     color: #fff;
 }
 
+.ikcs-card-header.repeater-header{
+    border-bottom: 1px solid #fff;
+}
+
 .ikcs-card-header-sort {
     padding-left: 50px;
 }
@@ -227,6 +231,13 @@
     border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
+.ikcs-card-options + .ikcs-card-options{
+    margin-top: 20px;
+}
+
+.options-item{
+    font-size: 16px;
+}
 .options-item + .options-item {
     margin-top: 5px;
 }

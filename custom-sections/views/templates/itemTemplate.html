@@ -1,0 +1,106 @@
+<div class="ikcs_head ikcs-card-header ikcs-card-header-sort">
+    <div>
+        <div class="ikcs_head-sort">#{{ $index+1 }}</div>
+        <div class="ikcs_head-name" data-ng-if="item.label != '' || item.label != ' '">{{ item.label }}</div>
+        <div class="ikcs_head-name" data-ng-if="item.label == '' || item.label == ' '">---</div>
+    </div>
+
+    <ul class="actions">
+        <li data-ng-click="removeItem($index)"><i class="wp-menu-image dashicons-before dashicons-trash"></i></li>
+        <li data-ng-click="triggerShowItem($index, item.options.open)">
+            <i class="wp-menu-image dashicons-before dashicons-arrow-up" data-ng-if="item.options.open == 1"></i>
+            <i class="wp-menu-image dashicons-before dashicons-arrow-down" data-ng-if="item.options.open == 0"></i>
+        </li>
+    </ul>
+</div>
+
+<div class="ikcs_body" data-ng-show="item.options.open == 1">
+
+    <div class="form-wrapper">
+        <div class="form-item">
+            <div class="form-group">
+                <label class="fg-label"><?php echo __( 'Wprowadż nazwę pola', 'ikcs-trans' ); ?></label>
+                <input type="text" data-ng-model="item.label" class="form-control form-control-sm" autocomplete="off" />
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-group">
+                <label class="fg-label"><?php echo __( 'Wprowadż identyfikator pola', 'ikcs-trans' ); ?></label>
+                <input type="text" data-ng-model="item.id" class="form-control form-control-sm" autocomplete="off" />
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-group">
+                <label class="fg-label"><?php echo __( 'Rodzaj pola', 'ikcs-trans' ); ?></label>
+                <select data-ng-model="item.type" class="form-control form-control-sm">
+                    <option value="text">Text</option>
+                    <option value="tel">Telefon</option>
+                    <option value="email">Email</option>
+                    <option value="number">Liczba</option>
+                    <option value="textarea">Duży obszar tekstowy</option>
+                    <option value="cheskbox">Checkbox</option>
+                    <option value="radio">Radio</option>
+                    <option value="link">Link</option>
+                    <option value="fa">Font Awesome</option>
+                    <option value="repeater_object">Objekt pul</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="repeater" data-ng-if="item.type == 'repeater_object'">
+            <div class="ikcs_items-header">
+                <div class="ikcs_head ikcs-card-header ikcs-card-header-sort">
+                    <div>
+                        <div class="ikcs_head-sort">#</div>
+                        <div class="ikcs_head-name"><?php echo __( 'Nazwa pola', 'ikcs-trans' ); ?></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ikcs_repeater_items" data-ng-if="ikcsAdd.item.repeater_fields.length > 0" ui-sortable="sortableOptions" ng-model="ikcsAdd.item.repeater_fields">
+
+            </div>
+            <div class="add-new-item">
+                <button type="button" class="ikcs-btn" data-ng-click="addNewSubSection($index)"><?php echo __( 'Dodaj nowe pole', 'ikcs-trans' ); ?></button>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="radio-label fg-label"><?php echo __('Czy to pole jest wymagane ?', 'ikcs-trans' ); ?></div>
+            <div>
+                <label class="radio-item radio-inline">
+                    <input type="radio" name="fields[options][required]" data-ng-model="item.options.required" value="on" />
+                    <span class="crs-icon"></span>
+                    <span class="crs-text"><?php echo __( 'Tak', 'ikcs-trans' ); ?></span>
+                </label>
+                <label class="radio-item radio-inline">
+                    <input type="radio" name="fields[options][required]" data-ng-model="item.options.required" value="off" />
+                    <span class="crs-icon"></span>
+                    <span class="crs-text"><?php echo __( 'Nie', 'ikcs-trans' ); ?></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-group">
+                <label class="fg-label"><?php echo __( 'Domyślna wartość pola', 'ikcs-trans' ); ?></label>
+                <input type="text" data-ng-model="item.default_value" class="form-control form-control-sm" autocomplete="off" />
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-group">
+                <label class="fg-label"><?php echo __( 'Minimalna ilość znaków', 'ikcs-trans' ); ?></label>
+                <input type="number" min="0" data-ng-model="item.options.min_length" class="form-control form-control-sm" autocomplete="off" />
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-group">
+                <label class="fg-label"><?php echo __( 'Maksymalna ilość znaków', 'ikcs-trans' ); ?></label>
+                <input type="number" min="0" data-ng-model="item.options.max_length" class="form-control form-control-sm" autocomplete="off" />
+            </div>
+        </div>
+    </div>
+</div>

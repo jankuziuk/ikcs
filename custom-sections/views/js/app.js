@@ -133,19 +133,55 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
             }
         };
         $scope.ikcsAdd.fields.push(section);
+        console.log($scope.ikcsAdd);
     };
 
     $scope.addNewSubSection = function (index) {
+        var section={
+            id: '',
+            label: '',
+            default_value: '',
+            repeater_fields: [],
+            options: {
+                open: 1,
+                required: 'off',
+                min_length: 0,
+                max_length: 100
+            }
+        };
         $scope.ikcsAdd.fields[index].repeater_fields.push(section);
+        console.log($scope.ikcsAdd);
     };
 
     $scope.removeItem = function (index) {
         $scope.ikcsAdd.fields.splice(index, 1);
     };
 
+    $scope.removeSubItem = function (parentIndex, index) {
+        $scope.ikcsAdd.fields[parentIndex].repeater_fields.splice(index, 1);
+    };
+
     $scope.triggerShowItem = function (index, isOpen) {
         if(isOpen == 1){
             $scope.ikcsAdd.fields[index].options.open = 0;
+        }
+        else {
+            $scope.ikcsAdd.fields[index].options.open = 1;
+        }
+    };
+
+    $scope.triggerShowSubItem = function (parentIndex, index, isOpen) {
+        if(isOpen == 1){
+            $scope.ikcsAdd.fields[parentIndex].repeater_fields[index].options.open = 0;
+        }
+        else {
+            $scope.ikcsAdd.fields[parentIndex].repeater_fields[index].options.open = 1;
+        }
+    };
+
+    $scope.triggerShowSubItem = function (index, subindex, isOpen) {
+        if(isOpen == 1){
+            $scope.ikcsAdd.fields[index].repeater_fields[subindex].options.open = 0;
         }
         else {
             $scope.ikcsAdd.fields[index].options.open = 1;

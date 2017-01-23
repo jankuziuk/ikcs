@@ -71,6 +71,7 @@ class IKCS{
                 section_name VARCHAR(255),
                 section_opions longtext,
                 section_value longtext,
+                datetime_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 datetime_mod TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UNIQUE KEY id (id)
             ) $charset_collate;";
@@ -85,6 +86,7 @@ class IKCS{
                 section_name VARCHAR(255),
                 section_opions longtext,
                 section_value longtext,
+                datetime_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 datetime_mod TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UNIQUE KEY id (id)
             ) $charset_collate;";
