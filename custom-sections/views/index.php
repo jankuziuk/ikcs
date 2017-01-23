@@ -2,7 +2,7 @@
 //    $list = ikcs_get_all_postmeta_by_key($this->settings['meta_key']);
 //?>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-<div class="wrap" data-ng-app="ikcs">
+<div class="wrap ikcs-wrap" data-ng-app="ikcs">
     <div data-ng-controller="ikcsGetSections">
         <div class="main-header">
             <h1 class="wp-heading-inline"><?php echo __('Zdefiniowane sekcje', 'ikcs-trans'); ?></h1>

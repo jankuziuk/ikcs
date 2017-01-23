@@ -246,6 +246,50 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
     };
 }]);
 
+app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http) {
+    $scope.ikcsSections = [];
+    $scope.existingSections = [];
+    $scope.ikcsGetListComplete = false;
+
+    $scope.sortableOptions = {
+        cursor: "move",
+        axis: 'y'
+    };
+
+    $scope.getExistingSections = function () {
+        $http({
+            method: 'GET',
+            url: ajaxurl,
+            params: {
+                action: 'ikcs_get_all_sections'
+            }
+        }).then(function successCallback(response) {
+            $scope.ikcsSections = response.data.sections;
+            $scope.ikcsGetListComplete = true;
+            console.log(response);
+        }, function errorCallback(response) {
+            console.warn(response);
+        });
+    };
+
+    $scope.getAllSections = function () {
+        $http({
+            method: 'GET',
+            url: ajaxurl,
+            params: {
+                action: 'ikcs_get_all_sections'
+            }
+        }).then(function successCallback(response) {
+            $scope.ikcsSections = response.data.sections;
+            $scope.ikcsGetListComplete = true;
+            console.log(response);
+        }, function errorCallback(response) {
+            console.warn(response);
+        });
+    };
+    $scope.getAllSections();
+}]);
+
 jQuery.extend({
     getUrlVars: function(){
         var vars = [], hash;
