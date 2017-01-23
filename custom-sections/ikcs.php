@@ -135,9 +135,9 @@ class IKCS{
     public function includes_files(){
         wp_enqueue_style( 'ikcs-style', $this->settings['views_dir'].'views/css/style.css');
         wp_enqueue_script( 'ikcs-angular', $this->settings['views_dir'].'views/js/libraries/angular.min.js');
-        wp_enqueue_script( 'ikcs-sortable', $this->settings['views_dir'].'views/js/libraries/sortable.js');
-        wp_enqueue_script( 'ikcs-pagination', $this->settings['views_dir'].'views/js/libraries/dirPagination.js');
-        wp_enqueue_script( 'ikcs-notify', $this->settings['views_dir'].'views/js/libraries/angular-notify.min.js');
+//        wp_enqueue_script( 'ikcs-sortable', $this->settings['views_dir'].'views/js/libraries/sortable.js');
+//        wp_enqueue_script( 'ikcs-pagination', $this->settings['views_dir'].'views/js/libraries/dirPagination.js');
+//        wp_enqueue_script( 'ikcs-notify', $this->settings['views_dir'].'views/js/libraries/angular-notify.min.js');
         wp_enqueue_script( 'ikcs-app', $this->settings['views_dir'].'views/js/app.js');
     }
 }
