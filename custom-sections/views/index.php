@@ -49,7 +49,11 @@
                                     <a href="<?php echo ikcs_edit_path(); ?>{{ item.id }}" class="table-col table-name">{{ item.section_name }}</a>
                                     <a href="<?php echo ikcs_edit_path(); ?>{{ item.id }}" class="table-col table-date">{{ item.datetime_mod }}</a>
                                     <div class="table-col table-actions">
-                                        <button type="button" data-ng-class="item.removing ? 'btn-loader' : ''" class="ikcs-btn ikcs-btn-dash ikcs-btn-trash dashicons dashicons-trash" class="remove-section" data-ng-click="removeSectionById(item.id, $index)">
+                                        <button type="button"
+                                                data-ng-class="item.removing ? 'btn-loader' : ''"
+                                                class="ikcs-btn ikcs-btn-dash ikcs-btn-trash dashicons dashicons-trash remove-section"
+                                                data-ng-click="removeSectionById(item.id, $index)"
+                                        >
                                             <div class="loader"
                                                  data-ng-if="item.removing"
                                                  data-ng-include="'<?php echo ikcs_views_path(); ?>/templates/preloader.html'">
@@ -78,6 +82,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
+                            <div notifybar style="position:absolute;top:0;right:0"></div>
                         </div>
                     </div>
                 </div>

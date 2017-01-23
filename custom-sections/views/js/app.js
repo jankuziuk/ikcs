@@ -1,6 +1,21 @@
-var app = angular.module('ikcs', ['ui.sortable', 'ngCookies', 'angularUtils.directives.dirPagination']);
+var app = angular.module('ikcs', ['ui.sortable', 'ngCookies', 'angularUtils.directives.dirPagination', 'toastr']);
 
-app.controller("ikcsGetSections", ['$scope', '$http', '$location', '$cookies', function ($scope, $http, $location, $cookies) {
+app.config(function(toastrConfig) {
+    angular.extend(toastrConfig, {
+        autoDismiss: false,
+        maxOpened: 0,
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: false,
+        preventOpenDuplicates: false,
+        target: 'body',
+        timeOut: 5000
+    });
+});
+
+app.controller("ikcsGetSections", ['$scope', '$http', '$location', '$cookies', 'toastr', function ($scope, $http, $location, $cookies, toastr) {
     $scope.ikcsSections = [];
     $scope.ikcsGetListComplete = false;
     $scope.itemsPerPage = 10;
@@ -64,13 +79,14 @@ app.controller("ikcsGetSections", ['$scope', '$http', '$location', '$cookies', f
                     }
                 }
             }
+            toastr.success('Sekcja została usunięta', 'Success!');
         }, function errorCallback(response) {
             console.warn(response);
+            toastr.error('Wystąpił nieoczekiwany błąd', 'Błąd!');
         });
     };
 
     $scope.pageChanged = function (page, itemsPerPage) {
-        console.log(page, itemsPerPage);
         $location.search('page', page);
         $cookies.put('itemsPerPage', itemsPerPage);
     };
@@ -84,21 +100,10 @@ app.controller("ikcsGetSections", ['$scope', '$http', '$location', '$cookies', f
     $scope.getAllSections();
 }]);
 
-app.controller("ikcsAddEditSection", ['$scope', '$http', function ($scope, $http) {
-    var sectionID = (typeof jQuery.getUrlVar('id') != "undefined") ? parseInt(jQuery.getUrlVar('id')) : false,
-        section={
-            id: '',
-            label: '',
-            default_value: '',
-            repeater_fields: [],
-            options: {
-                open: 1,
-                required: 'off',
-                min_length: 0,
-                max_length: 100
-            }
-        };
+app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($scope, $http, toastr) {
+    var sectionID = (typeof jQuery.getUrlVar('id') != "undefined") ? parseInt(jQuery.getUrlVar('id')) : false;
     $scope.pageLoadComplete = false;
+    $scope.ikcsAddFormSaving = false;
     $scope.ikcsAdd = {
         id: sectionID,
         name: '',
@@ -115,6 +120,18 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', function ($scope, $http
     };
 
     $scope.addNewSection = function () {
+        var section={
+            id: '',
+            label: '',
+            default_value: '',
+            repeater_fields: [],
+            options: {
+                open: 1,
+                required: 'off',
+                min_length: 0,
+                max_length: 100
+            }
+        };
         $scope.ikcsAdd.fields.push(section);
     };
 
@@ -161,6 +178,7 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', function ($scope, $http
     }
 
     $scope.submit = function () {
+        $scope.ikcsAddFormSaving = true;
         $http({
             method: 'POST',
             url: ajaxurl,
@@ -176,9 +194,18 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', function ($scope, $http
         }).then(function successCallback(response) {
             if(response.data.status == "OK" && response.data.type == 'insert'){
                 window.location.search = "?page=ikcs-edit&id=" + response.data.id;
+                toastr.success('Sekcja została dodana', 'Success!');
             }
+            else if (response.data.status == "OK" && response.data.type == 'update'){
+                toastr.success('Sekcja została zaaktualizowana', 'Success!');
+            }
+            else {
+                toastr.error('Wystąpił nieoczekiwany błąd', 'Błąd!');
+            }
+            $scope.ikcsAddFormSaving = false;
         }, function errorCallback(response) {
             console.warn(response);
+            $scope.ikcsAddFormSaving = false;
         });
     };
 }]);

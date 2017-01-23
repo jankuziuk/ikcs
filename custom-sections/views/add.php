@@ -73,7 +73,7 @@
 
                                                     <div class="form-item">
                                                         <div class="form-group">
-                                                            <label class="fg-label"><?php echo __( 'Rodzaj pola pola', 'ikcs-trans' ); ?></label>
+                                                            <label class="fg-label"><?php echo __( 'Rodzaj pola', 'ikcs-trans' ); ?></label>
                                                             <select data-ng-model="item.type" class="form-control form-control-sm">
                                                                 <option value="text">Text</option>
                                                                 <option value="tel">Telefon</option>
@@ -197,9 +197,17 @@
                                         </div>
                                     </div>
                                     <div class="ikcs-card-footer">
-                                        <button type="submit" class="ikcs-btn ikcs-btn-large ikcs-btn-block">
+                                        <button
+                                            type="submit"
+                                            class="ikcs-btn ikcs-btn-large ikcs-btn-block btn-loader-lg"
+                                            data-ng-class="ikcsAddFormSaving ? 'btn-loader' : ''"
+                                        >
                                             <span data-ng-if="ikcsAdd.id"><?php echo __( 'Zapisz zmiany', 'ikcs-trans' ); ?> </span>
                                             <span data-ng-if="!ikcsAdd.id"><?php echo __( 'Dodaj', 'ikcs-trans' ); ?> </span>
+                                            <div class="loader"
+                                                 data-ng-if="ikcsAddFormSaving"
+                                                 data-ng-include="'<?php echo ikcs_views_path(); ?>/templates/preloader.html'">
+                                            </div>
                                         </button>
                                     </div>
                                 </div>
