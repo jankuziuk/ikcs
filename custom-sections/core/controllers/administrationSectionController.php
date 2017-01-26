@@ -13,6 +13,7 @@ if($_REQUEST['action'] == "ikcs_update_section"){
             $data['type'] = 'update';
             $query = $wpdb->update($table_name_sections,
                 array(
+                    'section_id' => $request->section_id,
                     'section_name' => $request->name,
                     'section_opions' => serialize($request->settings),
                     'section_value' => serialize($request->fields),
@@ -20,18 +21,20 @@ if($_REQUEST['action'] == "ikcs_update_section"){
                 ), array(
                     'id' => $request->id
                 ), array(
-                    '%s', '%s', '%s'
+                    '%s', '%s', '%s', '%s'
                 )
             );
         } else {
             $data['type'] = 'insert';
             $query = $wpdb->insert($table_name_sections,
                 array(
+                    'section_id' => $request->section_id,
                     'section_name' => $request->name,
                     'section_opions' => serialize($request->settings),
-                    'section_value' => serialize($request->fields)
+                    'section_value' => serialize($request->fields),
+                    'datetime_mod' => date("Y-m-d H:i:s")
                 ), array(
-                    '%s', '%s', '%s'
+                    '%s', '%s', '%s', '%s'
                 )
             );
         }
@@ -63,6 +66,7 @@ if($_REQUEST['action'] == "ikcs_get_section_by_id") {
         if($result){
             $data['status'] = 'OK';
             $data['section']['id'] = $result->id;
+            $data['section']['section_id'] = $result->section_id;
             $data['section']['name'] = $result->section_name;
             $data['section']['settings'] = unserialize($result->section_opions);
             $data['section']['fields'] = unserialize($result->section_value);

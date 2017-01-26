@@ -20,9 +20,13 @@
                             </div>
                             <div data-ng-if="pageLoadComplete">
                                 <div class="ikcs-card-head">
-                                    <div class="form-group">
-                                        <label class="fg-label"><?php echo __( 'Wprowadż nazwę pola', 'ikcs-trans' ); ?></label>
+                                    <div class="form-group form-group-item">
+                                        <label class="fg-label"><?php echo __( 'Wprowadż nazwę sekcji', 'ikcs-trans' ); ?></label>
                                         <input type="text" name="name" data-ng-model="ikcsAdd.name" class="form-control" autocomplete="off" />
+                                    </div>
+                                    <div class="form-group form-group-item">
+                                        <label class="fg-label"><?php echo __( 'Wprowadż identyfikator sekcji', 'ikcs-trans' ); ?></label>
+                                        <input type="text" name="section_id" data-ng-model="ikcsAdd.section_id" class="form-control" autocomplete="off" />
                                     </div>
                                 </div>
 

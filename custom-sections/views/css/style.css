@@ -260,14 +260,11 @@
     position: absolute;
     bottom: 100%;
     left: 50%;
-    width: 300px;
+    width: 298px;
     margin-bottom: 10px;
     background: #23282d;
     font-size: 15px;
     text-align: left;
-    max-height: 206px;
-    overflow: hidden;
-    overflow-y: auto;
     -moz-transform: translate3d(-50%, 0, 0);
     -webkit-transform: translate3d(-50%, 0, 0);
     -o-transform: translate3d(-50%, 0, 0);
@@ -275,16 +272,30 @@
     transform: translate3d(-50%, 0, 0);
 }
 
-.add-from-sections-list-popup::-webkit-scrollbar-track {
+.section-list-title{
+    padding: 12px 10px 10px 10px;
+    font-size: 18px;
+    background: #1976d2;
+}
+
+.section-list-inner{
+    position: relative;
+    min-height: 100px;
+    max-height: 206px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.section-list-inner::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 
-.add-from-sections-list-popup::-webkit-scrollbar-thumb {
+.section-list-inner::-webkit-scrollbar-thumb {
     background-color: #999ca3;
     outline: 1px solid slategrey;
 }
 
-.add-from-sections-list-popup::-webkit-scrollbar {
+.section-list-inner::-webkit-scrollbar {
     width: 6px;
 }
 
@@ -306,7 +317,22 @@
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 5;
+    background: rgba(50,55,60,0.7);
+
 }
+
+/*.loader-inner{*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*-moz-transform: translate3d(0, -50%, 0);*/
+    /*-webkit-transform: translate3d(0, -50%, 0);*/
+    /*-o-transform: translate3d(0, -50%, 0);*/
+    /*-ms-transform: translate3d(0, -50%, 0);*/
+    /*transform: translate3d(0, -50%, 0);*/
+/*}*/
 
 .add-from-section{
     font-size: 14px;
@@ -350,6 +376,104 @@
 
 .add-from-section:hover .ikcs-menu-image:before{
     color: #00b9eb;
+}
+
+.mp-area{
+    padding: 100px;
+    margin: 48px 80px;
+    position: relative;
+    background: #cff;
+    text-align: center;
+    font-size: 30px;
+}
+.mp-area .margin,
+.mp-area .padding{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+.mp-area .form-control{
+    width: 70px;
+    margin: auto;
+}
+.mp-area .margin > div{
+    position: absolute;
+    background: #fc9;
+    padding: 5px;
+}
+.mp-area .margin .top{
+    bottom: 100%;
+}
+.mp-area .margin .left{
+    right: 100%;
+}
+.mp-area .margin .right{
+    left: 100%;
+}
+.mp-area .margin .bottom{
+    top: 100%;
+}
+
+.mp-area .margin .left,
+.mp-area .margin .right{
+    top: -48px;
+    bottom: -48px;
+    width: 80px;
+}
+.mp-area .margin .top,
+.mp-area .margin .bottom{
+    left: 0;
+    right: 0;
+}
+
+.mp-area .padding > div{
+    position: absolute;
+    background: #cfc;
+    padding: 5px;
+}
+
+.mp-area .padding .top{
+    top: 0;
+}
+.mp-area .padding .left{
+    left: 0;
+}
+.mp-area .padding .right{
+    right: 0;
+}
+.mp-area .padding .bottom{
+    bottom: 0;
+}
+
+.mp-area .padding .top,
+.mp-area .padding .bottom{
+    left: 0;
+    right: 0;
+}
+.mp-area .padding .left,
+.mp-area .padding .right{
+    top: 0;
+    bottom: 0;
+    width: 80px;
+}
+
+.mp-area .margin .left .form-control,
+.mp-area .margin .right .form-control,
+.mp-area .padding .left .form-control,
+.mp-area .padding .right .form-control{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    right: 5px;
+    -moz-transform: translate3d(0, -50%, 0);
+    -webkit-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
 }
 
 .ikcs-btn {
@@ -399,6 +523,13 @@
     background: #f44336;
 }
 
+.ikcs-btn-add-new{
+    min-width: 212px;
+}
+.btn-loader.ikcs-btn-add-new{
+    padding: 3px 30px 2px;
+}
+
 .btn-loader{
     color: transparent;
     font-size: 0 !important;
@@ -433,6 +564,10 @@
 .form-group {
     position: relative;
     margin: 0;
+}
+
+.form-group-item + .form-group-item{
+    margin-top: 20px;
 }
 
 .fg-label {
@@ -817,6 +952,10 @@
     display: inline-block;
     -webkit-animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);
     animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);
+}
+
+.loader.white-loader .line-scale-pulse-out > div{
+    background-color: #fff;
 }
 
 .line-scale-pulse-out > div:nth-child(2), .line-scale-pulse-out > div:nth-child(4) {

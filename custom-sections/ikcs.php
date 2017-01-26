@@ -70,6 +70,7 @@ class IKCS{
         if($wpdb->get_var("SHOW TABLES LIKE '$table_name_sections'") != $table_name_sections) {
             $sql = "CREATE TABLE $table_name_sections (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
+                section_id VARCHAR(255),
                 section_name VARCHAR(255),
                 section_opions longtext,
                 section_value longtext,
@@ -85,6 +86,7 @@ class IKCS{
             $sql = "CREATE TABLE $table_name_postmeta (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
                 post_id bigint(20),
+                section_id VARCHAR(255),
                 section_name VARCHAR(255),
                 section_opions longtext,
                 section_value longtext,

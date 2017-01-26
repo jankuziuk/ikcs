@@ -106,6 +106,7 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
     $scope.ikcsAddFormSaving = false;
     $scope.ikcsAdd = {
         id: sectionID,
+        section_id: '',
         name: '',
         fields: [],
         settings: {
@@ -223,6 +224,7 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
             },
             data: {
                 id: sectionID,
+                section_id: $scope.ikcsAdd.section_id,
                 name: $scope.ikcsAdd.name,
                 settings: $scope.ikcsAdd.settings,
                 fields: $scope.ikcsAdd.fields
@@ -250,7 +252,7 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     $scope.ikcsSections = [];
     $scope.existingSections = [];
     $scope.ikcsGetListComplete = false;
-    $scope.addNewSectionBefore = true;
+    $scope.addNewSectionBefore = false;
     $scope.sortableOptions = {
         cursor: "move",
         axis: 'y'
@@ -288,6 +290,10 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         });
     };
 
+    $scope.showSectionsPopup = function () {
+
+    };
+
     $scope.addNewSection = function (id) {
         console.log(id);
         $scope.addNewSectionBefore = true;
@@ -310,7 +316,37 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     };
 
     $scope.getAllSections();
+
+    jQuery('body').on('click', '[data-show-popup]', function (e) {
+        e.preventDefault();
+        var $button = jQuery(this),
+            $popup = jQuery($button.attr('data-show-popup'));
+
+        if($button.is('.open')){
+            $button.removeClass('open');
+            $popup.addClass('hidden');
+        } else {
+            $button.addClass('open');
+            $popup.removeClass('hidden');
+        }
+
+        $popup.on('click', $button.attr('data-item-class'), function () {
+            $button.removeClass('open');
+            $popup.addClass('hidden');
+        });
+    });
+
+    jQuery(document).on('click', function (e) {
+        e.preventDefault();
+        var $container = jQuery('.add-from-sections-list');
+        if($container.has(e.target).length === 0){
+            jQuery('[data-show-popup]').removeClass('open');
+            jQuery(jQuery('[data-show-popup]').attr('data-show-popup')).addClass('hidden');
+        }
+    });
 }]);
+
+
 
 jQuery.extend({
     getUrlVars: function(){
