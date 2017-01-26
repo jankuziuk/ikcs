@@ -250,7 +250,7 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     $scope.ikcsSections = [];
     $scope.existingSections = [];
     $scope.ikcsGetListComplete = false;
-
+    $scope.addNewSectionBefore = true;
     $scope.sortableOptions = {
         cursor: "move",
         axis: 'y'
@@ -287,6 +287,28 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             console.warn(response);
         });
     };
+
+    $scope.addNewSection = function (id) {
+        console.log(id);
+        $scope.addNewSectionBefore = true;
+        $http({
+            method: 'POST',
+            url: ajaxurl,
+            params: {
+                action: 'ikcs_get_section_by_id'
+            },
+            data:{
+                id: id
+            }
+        }).then(function successCallback(response) {
+            $scope.existingSections.push(response.data.section);
+            $scope.addNewSectionBefore = false;
+            console.log($scope.existingSections)
+        }, function errorCallback(response) {
+            console.warn(response);
+        });
+    };
+
     $scope.getAllSections();
 }]);
 
