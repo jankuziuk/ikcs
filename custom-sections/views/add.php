@@ -1,5 +1,9 @@
+<?php
+
+?>
+
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-<div class="wrap ikcs-wrap" data-ng-app="ikcs">
+<div class="wrap ikcs ikcs-wrap" data-ng-app="ikcs">
     <div data-ng-controller="ikcsAddEditSection" class="ng-cloak" data-ng-cloak>
         <div class="main-header">
             <h1 class="wp-heading-inline">

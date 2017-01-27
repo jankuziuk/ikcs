@@ -1,7 +1,7 @@
-<div data-ng-app="ikcs">
+<div data-ng-app="ikcs" class="ikcs">
     <div data-ng-controller="ikcsPageRendering" class="ng-cloak" data-ng-cloak>
         <div class="ikcs-page">
-
+<!--            wp_get_attachment_image_src( $attachment_id = 19, $size = 'full')-->
             <div class="sections-list" ui-sortable="sortableOptions">
                 <div class="section-item" ng-repeat="item in existingSections" data-as-sortable-item>
                     <div class="options">
@@ -11,12 +11,28 @@
                                     <div class="table-row">
                                         <div class="table-col background v-top" data-ng-if="item.settings.show_select_bg">
                                             <div class="mp-inner-title"><?php echo __( 'Ustał tło:', 'ikcs-trans' ); ?></div>
-                                            <div class="image">
-                                                <img src="" alt="Logo" id="ik_logo_img_{{index}}" style="vertical-align: middle;" />
-                                                <input type="hidden" name="ik_theme_options[logo_url_{{index}}]" id="ik_logo_url_{{index}}">
-                                                <a class="button" data-ng-click="upload_image(index)" style="vertical-align: middle;">Dodaj logo</a>
+                                            <div class="mp-inner-bg">
+                                                <div class="mp-bg-type">
+                                                    <div class="form-group">
+                                                        <label class="fg-label"><?php echo __( 'Wybierz rodzaj tła', 'ikcs-trans' ); ?></label>
+                                                        <select data-ng-model="item.settings.bg_type" class="form-control form-control-sm">
+                                                            <option value="image">Image</option>
+                                                            <option value="color">Kolor</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mp-image" data-ng-if="item.settings.bg_type == 'image'">
+                                                    <div class="image-view" data-ng-show="item.settings.bg_img_url != ''">
+                                                        <img data-ng-src="{{ item.settings.bg_img_url }}" data-ng-model="item.settings.bg_img_url" alt="" />
+                                                    </div>
+                                                    <input type="hidden" data-ng-model="item.settings.bg_img_id">
+                                                    <a class="button" data-ng-click="upload_image($index)">Dodaj obrazek</a>
+                                                </div>
+                                                <div class="colorpicker" data-ng-if="item.settings.bg_type == 'color'">
+
+                                                </div>
                                             </div>
-                                            <div class="colorpicker"></div>
+
                                         </div>
                                         <div class="table-col margin v-top" data-ng-if="item.settings.show_select_margin">
                                             <div class="mp-inner-title"><?php echo __( 'Odstępy zewnętrzne:', 'ikcs-trans' ); ?></div>

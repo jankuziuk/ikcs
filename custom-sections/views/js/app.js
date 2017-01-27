@@ -113,6 +113,8 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
             show_select_bg: 1,
             show_select_margin: 1,
             show_custom_css: 1,
+            bg_img_id: false,
+            bg_img_url: '',
             margin: {
                 top: 10,
                 left: 0,
@@ -308,7 +310,6 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     };
 
     $scope.addNewSection = function (id) {
-        console.log(id);
         $scope.addNewSectionBefore = true;
         $http({
             method: 'POST',
@@ -322,16 +323,16 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         }).then(function successCallback(response) {
             $scope.existingSections.push(response.data.section);
             $scope.addNewSectionBefore = false;
-            console.log($scope.existingSections)
+            console.log($scope.existingSections);
         }, function errorCallback(response) {
             console.warn(response);
         });
     };
 
-    var uploader;
-    $scope.upload_image = function(index) {
 
-        //Extend the wp.media object
+    $scope.upload_image = function(index) {
+        var uploader,
+            field_index = index;
         uploader = wp.media.frames.file_frame = wp.media({
             title: 'Wybierz logo',
             button: {
@@ -339,18 +340,15 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             },
             multiple: false
         });
-
-        //When a file is selected, grab the URL and set it as the text field's value
         uploader.on('select', function() {
             var attachment = uploader.state().get('selection').first().toJSON();
-            var url = attachment['url'];
-            jQuery('#ik_logo_url_'+index).val(url);
-            jQuery('#ik_logo_img_'+index).attr('src', url);
+            $scope.$apply(function () {
+                $scope.existingSections[field_index].settings.bg_img_id = attachment.id;
+                $scope.existingSections[field_index].settings.bg_img_url = attachment.url;
+            });
         });
-
-        //Open the uploader dialog
         uploader.open();
-    }
+    };
 
     $scope.getAllSections();
 
@@ -374,7 +372,6 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     });
 
     jQuery(document).on('click', function (e) {
-        e.preventDefault();
         var $container = jQuery('.add-from-sections-list');
         if($container.has(e.target).length === 0){
             jQuery('[data-show-popup]').removeClass('open');

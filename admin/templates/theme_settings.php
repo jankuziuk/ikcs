@@ -11,7 +11,7 @@ add_action('admin_enqueue_scripts', 'load_custom_wp_admin_files');
 function theme_options_init(){
     register_setting( 'ik_options', 'ik_theme_options');
 }
-function logo_setting() {  echo '<input type="file" name="logo" />';}
+//function logo_setting() {  echo '<input type="file" name="logo" />';}
 
 function theme_options_add_page() {
     add_menu_page( __( 'Ustawienia motywu', 'WP-Unique' ), __( 'Ustawienia motywu', 'WP-Unique' ), 'edit_theme_options', 'theme_options', 'theme_options_do_page' );
@@ -263,31 +263,31 @@ function theme_options_do_page()
             </div>
         </form>
     </div>
-    <script>
-        var uploader;
-        function upload_image() {
-
-            //Extend the wp.media object
-            uploader = wp.media.frames.file_frame = wp.media({
-                title: 'Wybierz logo',
-                button: {
-                    text: 'Wybierz'
-                },
-                multiple: false
-            });
-
-            //When a file is selected, grab the URL and set it as the text field's value
-            uploader.on('select', function() {
-                var attachment = uploader.state().get('selection').first().toJSON();
-                var url = attachment['url'];
-                jQuery('#ik_logo_url').val(url);
-                jQuery('#ik_logo_img').attr('src', url);
-            });
-
-            //Open the uploader dialog
-            uploader.open();
-        }
-    </script>
+<!--    <script>-->
+<!--        var uploader;-->
+<!--        function upload_image() {-->
+<!---->
+<!--            //Extend the wp.media object-->
+<!--            uploader = wp.media.frames.file_frame = wp.media({-->
+<!--                title: 'Wybierz logo',-->
+<!--                button: {-->
+<!--                    text: 'Wybierz'-->
+<!--                },-->
+<!--                multiple: false-->
+<!--            });-->
+<!---->
+<!--            //When a file is selected, grab the URL and set it as the text field's value-->
+<!--            uploader.on('select', function() {-->
+<!--                var attachment = uploader.state().get('selection').first().toJSON();-->
+<!--                var url = attachment['url'];-->
+<!--                jQuery('#ik_logo_url').val(url);-->
+<!--                jQuery('#ik_logo_img').attr('src', url);-->
+<!--            });-->
+<!---->
+<!--            //Open the uploader dialog-->
+<!--            uploader.open();-->
+<!--        }-->
+<!--    </script>-->
     <?php
 }
 ?>
