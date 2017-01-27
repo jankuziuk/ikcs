@@ -378,102 +378,50 @@
     color: #00b9eb;
 }
 
-.mp-area{
-    padding: 100px;
-    margin: 48px 80px;
-    position: relative;
-    background: #cff;
-    text-align: center;
-    font-size: 30px;
+.mp-area .form-control{
+    width: 100%;
+}
+
+.mp-area .margin,
+.mp-area .padding,
+.mp-area .background {
+    padding: 0;
+}
+
+.mp-area .margin .fg-label,
+.mp-area .padding .fg-label{
+    font-size: 14px;
+}
+
+.mp-area .margin .table-col,
+.mp-area .padding .table-col{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.mp-inner-title{
+    padding: 12px 10px 10px 10px;
+    font-size: 16px;
+    background: #1976d2;
+    color: #fff;
 }
 .mp-area .margin,
-.mp-area .padding{
-    position: absolute;
-    top:0;
-    left:0;
-    right: 0;
-    bottom: 0;
-    text-align: center;
+.mp-area .background {
+    border-right: 1px solid rgba(0, 0, 0, .1);
+}
+.mp-area .margin .mp-inner-title{
+    /*border-right: 1px solid #fff;*/
 }
 
-.mp-area .form-control{
+.mp-label{
+    padding-right: 0 !important;
     width: 70px;
-    margin: auto;
-}
-.mp-area .margin > div{
-    position: absolute;
-    background: #fc9;
-    padding: 5px;
-}
-.mp-area .margin .top{
-    bottom: 100%;
-}
-.mp-area .margin .left{
-    right: 100%;
-}
-.mp-area .margin .right{
-    left: 100%;
-}
-.mp-area .margin .bottom{
-    top: 100%;
 }
 
-.mp-area .margin .left,
-.mp-area .margin .right{
-    top: -48px;
-    bottom: -48px;
-    width: 80px;
-}
-.mp-area .margin .top,
-.mp-area .margin .bottom{
-    left: 0;
-    right: 0;
-}
-
-.mp-area .padding > div{
-    position: absolute;
-    background: #cfc;
-    padding: 5px;
-}
-
-.mp-area .padding .top{
-    top: 0;
-}
-.mp-area .padding .left{
-    left: 0;
-}
-.mp-area .padding .right{
-    right: 0;
-}
-.mp-area .padding .bottom{
-    bottom: 0;
-}
-
-.mp-area .padding .top,
-.mp-area .padding .bottom{
-    left: 0;
-    right: 0;
-}
-.mp-area .padding .left,
-.mp-area .padding .right{
-    top: 0;
-    bottom: 0;
-    width: 80px;
-}
-
-.mp-area .margin .left .form-control,
-.mp-area .margin .right .form-control,
-.mp-area .padding .left .form-control,
-.mp-area .padding .right .form-control{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    right: 5px;
-    -moz-transform: translate3d(0, -50%, 0);
-    -webkit-transform: translate3d(0, -50%, 0);
-    -o-transform: translate3d(0, -50%, 0);
-    -ms-transform: translate3d(0, -50%, 0);
-    transform: translate3d(0, -50%, 0);
+.mp-px{
+    padding-left: 0 !important;
+    width: 25px;
+    padding-right: 0 !important;
 }
 
 .ikcs-btn {
@@ -801,6 +749,10 @@
     border-top: 1px solid rgba(0, 0, 0, .1);
     outline: none !important;
     box-shadow: 0 0 0 transparent !important;
+}
+
+.table-col.v-top{
+    vertical-align: top;
 }
 
 .ikcs-sections-item .table-col{

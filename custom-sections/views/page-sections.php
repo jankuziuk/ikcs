@@ -5,43 +5,106 @@
             <div class="sections-list" ui-sortable="sortableOptions">
                 <div class="section-item" ng-repeat="item in existingSections" data-as-sortable-item>
                     <div class="options">
-                        <div class="options-bg" data-ng-if="item.settings.show_select_bg">
-                            <div class="image"></div>
-                            <div class="colorpicker"></div>
-                        </div>
-                        <div class="option-mp" data-ng-if="item.settings.show_select_margin">
+                        <div class="option-mp">
                             <div class="mp-area">
-                                <?php echo __( 'Obszar kontentu', 'ikcs-trans' ); ?>
-                                <div class="margin">
-                                    <div class="top">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.margin.top" />
-                                    </div>
-                                    <div class="left">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.margin.left" />
-                                    </div>
-                                    <div class="right">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.margin.right" />
-                                    </div>
-                                    <div class="bottom">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.margin.bottom" />
-                                    </div>
-                                </div>
-                                <div class="padding">
-                                    <div class="top">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.padding.top" />
-                                    </div>
-                                    <div class="left">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.padding.left" />
-                                    </div>
-                                    <div class="right">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.padding.right" />
-                                    </div>
-                                    <div class="bottom">
-                                        <input type="number" class="form-control form-control-sm" data-ng-model="item.padding.bottom" />
+                                <div class="display-table">
+                                    <div class="table-row">
+                                        <div class="table-col background v-top" data-ng-if="item.settings.show_select_bg">
+                                            <div class="mp-inner-title"><?php echo __( 'Ustał tło:', 'ikcs-trans' ); ?></div>
+                                            <div class="image">
+                                                <img src="" alt="Logo" id="ik_logo_img_{{index}}" style="vertical-align: middle;" />
+                                                <input type="hidden" name="ik_theme_options[logo_url_{{index}}]" id="ik_logo_url_{{index}}">
+                                                <a class="button" data-ng-click="upload_image(index)" style="vertical-align: middle;">Dodaj logo</a>
+                                            </div>
+                                            <div class="colorpicker"></div>
+                                        </div>
+                                        <div class="table-col margin v-top" data-ng-if="item.settings.show_select_margin">
+                                            <div class="mp-inner-title"><?php echo __( 'Odstępy zewnętrzne:', 'ikcs-trans' ); ?></div>
+                                            <div class="display-table">
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="m_top"><?php echo __( 'Górny:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="m_top" data-ng-model="item.settings.margin.top" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="m_left"><?php echo __( 'Lewy:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="m_left" data-ng-model="item.settings.margin.left" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="m_right"><?php echo __( 'Prawy:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="m_right" data-ng-model="item.settings.margin.right" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="m_bottom"><?php echo __( 'Dolny:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="m_bottom" data-ng-model="item.settings.margin.bottom" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-col padding v-top" data-ng-if="item.settings.show_select_margin">
+                                            <div class="mp-inner-title"><?php echo __( 'Odstępy wewnętrzne:', 'ikcs-trans' ); ?></div>
+                                            <div class="display-table">
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="p_top"><?php echo __( 'Górny:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="p_top" data-ng-model="item.settings.padding.top" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="p_left"><?php echo __( 'Lewy:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="p_left" data-ng-model="item.settings.padding.left" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="p_right"><?php echo __( 'Prawy:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="p_right" data-ng-model="item.settings.padding.right" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                                <div class="table-row">
+                                                    <div class="table-col mp-label">
+                                                        <label class="fg-label" for="p_bottom"><?php echo __( 'Dolny:', 'ikcs-trans' ); ?></label>
+                                                    </div>
+                                                    <div class="table-col mp-input">
+                                                        <input type="number" min="0" class="form-control form-control-sm" id="p_bottom" data-ng-model="item.settings.padding.bottom" />
+                                                    </div>
+                                                    <div class="table-col mp-px">px</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="clear"></div>
                     </div>
                 </div>
             </div>
@@ -74,7 +137,7 @@
                 <div class="clear"></div>
             </div>
 
+
         </div>
     </div>
 </div>
-

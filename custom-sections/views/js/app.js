@@ -112,9 +112,22 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
         settings: {
             show_select_bg: 1,
             show_select_margin: 1,
-            show_custom_css: 1
+            show_custom_css: 1,
+            margin: {
+                top: 10,
+                left: 0,
+                right: 0,
+                bottom: 10
+            },
+            padding: {
+                top: 10,
+                left: 0,
+                right: 0,
+                bottom: 10
+            }
         }
     };
+
     $scope.sortableOptions = {
         cursor: "move",
         axis: 'y'
@@ -315,6 +328,30 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         });
     };
 
+    var uploader;
+    $scope.upload_image = function(index) {
+
+        //Extend the wp.media object
+        uploader = wp.media.frames.file_frame = wp.media({
+            title: 'Wybierz logo',
+            button: {
+                text: 'Wybierz'
+            },
+            multiple: false
+        });
+
+        //When a file is selected, grab the URL and set it as the text field's value
+        uploader.on('select', function() {
+            var attachment = uploader.state().get('selection').first().toJSON();
+            var url = attachment['url'];
+            jQuery('#ik_logo_url_'+index).val(url);
+            jQuery('#ik_logo_img_'+index).attr('src', url);
+        });
+
+        //Open the uploader dialog
+        uploader.open();
+    }
+
     $scope.getAllSections();
 
     jQuery('body').on('click', '[data-show-popup]', function (e) {
@@ -344,6 +381,7 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             jQuery(jQuery('[data-show-popup]').attr('data-show-popup')).addClass('hidden');
         }
     });
+
 }]);
 
 

@@ -310,6 +310,90 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="ikcs-card" data-ng-show="ikcsAdd.settings.show_select_margin && pageLoadComplete">
+                                <div class="margin">
+                                    <div class="mp-inner-title"><?php echo __( 'Ustaw domyśne odstępy zewnętrzne:', 'ikcs-trans' ); ?></div>
+                                    <div class="display-table">
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="m_top"><?php echo __( 'Górny:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="m_top" data-ng-model="ikcsAdd.settings.margin.top" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="m_left"><?php echo __( 'Lewy:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="m_left" data-ng-model="ikcsAdd.settings.margin.left" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="m_right"><?php echo __( 'Prawy:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="m_right" data-ng-model="ikcsAdd.settings.margin.right" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="m_bottom"><?php echo __( 'Dolny:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="m_bottom" data-ng-model="ikcsAdd.settings.margin.bottom" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="padding">
+                                    <div class="mp-inner-title"><?php echo __( 'Ustaw domyśne odstępy wewnętrzne:', 'ikcs-trans' ); ?></div>
+                                    <div class="display-table">
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="p_top"><?php echo __( 'Górny:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="p_top" data-ng-model="ikcsAdd.settings.padding.top" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="p_left"><?php echo __( 'Lewy:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="p_left" data-ng-model="ikcsAdd.settings.padding.left" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="p_right"><?php echo __( 'Prawy:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="p_right" data-ng-model="ikcsAdd.settings.padding.right" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                        <div class="table-row">
+                                            <div class="table-col mp-label">
+                                                <label class="fg-label" for="p_bottom"><?php echo __( 'Dolny:', 'ikcs-trans' ); ?></label>
+                                            </div>
+                                            <div class="table-col mp-input">
+                                                <input type="number" class="form-control form-control-sm" id="p_bottom" data-ng-model="ikcsAdd.settings.padding.bottom" />
+                                            </div>
+                                            <div class="table-col mp-px">px</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="clear"></div>
                     </div>
