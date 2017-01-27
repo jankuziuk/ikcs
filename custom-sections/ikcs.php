@@ -105,7 +105,7 @@ class IKCS{
         if ( in_array( $post_type, $post_types )) {
             add_meta_box(
                 'ikcs_meta_box_sections'
-                ,__( 'Custom sections', 'ikcs-trans' )
+                ,__( 'Zdefiniowane sekcje', 'ikcs-trans' )
                 ,array( $this, 'render_meta_box_content' )
                 ,$post_type
                 ,'advanced'
@@ -158,18 +158,11 @@ class IKCS{
     }
 
     public function includes_files(){
+        wp_enqueue_script( 'wp-color-picker' );
+        wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_style( 'ikcs-style', $this->settings['views_dir'].'views/css/style.css');
         wp_enqueue_script( 'ikcs-angular', $this->settings['views_dir'].'views/js/libraries/angular.min.js');
-//        wp_enqueue_script( 'ikcs-sortable', $this->settings['views_dir'].'views/js/libraries/sortable.js');
-//        wp_enqueue_script( 'ikcs-pagination', $this->settings['views_dir'].'views/js/libraries/dirPagination.js');
-//        wp_enqueue_script( 'ikcs-notify', $this->settings['views_dir'].'views/js/libraries/angular-notify.min.js');
         wp_enqueue_script( 'ikcs-app', $this->settings['views_dir'].'views/js/app.js');
-
-//        if ( ! did_action( 'wp_enqueue_media' ) ) {
-//            wp_enqueue_media();
-//        }
-//
-//        wp_enqueue_script( 'myuploadscript', get_stylesheet_directory_uri() . '/customscript.js', array('jquery'), null, false );
     }
 }
 

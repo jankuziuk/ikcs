@@ -156,7 +156,7 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
         var section={
             id: '',
             label: '',
-            default_value: '',
+            value: '',
             repeater_fields: [],
             options: {
                 open: 1,
@@ -305,10 +305,6 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         });
     };
 
-    $scope.showSectionsPopup = function () {
-
-    };
-
     $scope.addNewSection = function (id) {
         $scope.addNewSectionBefore = true;
         $http({
@@ -322,13 +318,17 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             }
         }).then(function successCallback(response) {
             $scope.existingSections.push(response.data.section);
-            $scope.addNewSectionBefore = false;
             console.log($scope.existingSections);
+            $scope.addNewSectionBefore = false;
         }, function errorCallback(response) {
             console.warn(response);
         });
     };
 
+    $scope.remove_image = function (index) {
+        $scope.existingSections[index].settings.bg_img_id = false;
+        $scope.existingSections[index].settings.bg_img_url = '';
+    };
 
     $scope.upload_image = function(index) {
         var uploader,
@@ -348,6 +348,24 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             });
         });
         uploader.open();
+    };
+
+    $scope.initColorPicker = function (type, index) {
+        var $input = jQuery('input#bg_color_'+index),
+            field_index = index;
+        if(type == 'color' && !$input.is('.wp-color-picker')){
+            $input.wpColorPicker({
+                change: function(event, ui){
+                    $scope.$apply(function () {
+                        $scope.existingSections[field_index].settings.bg_color = ui.color.toString();
+                    });
+                }
+            });
+        }
+    };
+
+    $scope.showData = function () {
+        console.log($scope.existingSections);
     };
 
     $scope.getAllSections();
