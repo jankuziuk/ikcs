@@ -288,6 +288,7 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         console.warn(response);
     });
 
+    
     $scope.getExistingSections = function () {
         $http({
             method: 'GET',
