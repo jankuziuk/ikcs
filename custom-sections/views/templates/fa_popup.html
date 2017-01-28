@@ -1,0 +1,36 @@
+<div class="ikcs-popup-wrap">
+    <div class="display-table">
+        <div class="table-row">
+            <div class="table-col">
+                <div class="ikcs-popup-content">
+                    <div class="ikcs-popup-header">Wybierz ikonke</div>
+                    <div class="fa-popup-search">
+                        <input type="text" class="form-control" data-ng-model="search.fa_value" />
+                    </div>
+                    <div class="fa-popup-preview">
+                        <div class="image-view without-pd">
+                            <div class="image-view-panel">
+                                <div class="image-view-label">{{ fa_preview_val }}</div>
+                            </div>
+                            <div class="fa-icon-preview">
+                                <i class="fa {{ fa_preview_key }}"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fa-popup-list">
+                        <div
+                            class="fa-popup-item"
+                            data-ng-repeat="item in fa_list|filter:search"
+                            data-ng-click="selectFaIcon($index, item.fa_key, item.fa_value)"
+                            data-ng-class="fa_preview_index == $index ? 'fa-active' : ''"
+                        >
+                            <i class="fa {{ item.fa_key }}"></i>{{ item.fa_value }}
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

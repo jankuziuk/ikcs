@@ -103,3 +103,44 @@ if($_REQUEST['action'] == "ikcs_remove_section_by_id") {
         wp_die();
     }
 }
+
+if($_REQUEST['action'] == "ikcs_get_fa_json") {
+    add_action('wp_ajax_ikcs_get_fa_json', 'ikcs_get_fa_json_callback');
+    add_action('wp_ajax_nopriv_ikcs_get_fa_json', 'ikcs_get_fa_json_callback');
+
+    function ikcs_get_fa_json_callback()
+    {
+        $IKCS = new IKCS();
+        $options = $IKCS->get_options();
+        $url = $options['dir'] . 'views/css/font-awesome.min.css';
+        $pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
+        $subject = file_get_contents($url);
+        preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
+        $icons = array();
+        foreach($matches as $key=>$match){
+            $icons['fa'][$key]['fa_key'] = $match[1];
+            $icons['fa'][$key]['fa_value'] = $match[1];
+        }
+        echo json_encode($icons);
+
+//        $IKCS = new IKCS();
+//        $options = $IKCS->get_options();
+//        $url = $options['dir'] . 'helpers/tsconfig.json';
+//        $json =   file_get_contents($url,0,null,null);
+//
+//        if($json != false){
+//            $data['status'] = 'OK';
+//            $falist = json_decode($json,true);
+//            foreach ($falist['icons'] as $key=>$val){
+//                $data['fa'][$key]['fa_key'] = 'fa-' . $val['id'];
+//                $data['fa'][$key]['fa_value'] = $val['id'];
+//                $data['fa'][$key]['fa_categories'] = $val['categories'];
+//            }
+//        }
+//        else{
+//            $data['status'] = 'FAIL';
+//        }
+//        echo json_encode($data);
+        wp_die();
+    }
+}

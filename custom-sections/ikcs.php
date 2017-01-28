@@ -161,6 +161,7 @@ class IKCS{
         wp_enqueue_script( 'wp-color-picker' );
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_style( 'ikcs-style', $this->settings['views_dir'].'views/css/style.css');
+        wp_enqueue_style( 'ikcs-fa', $this->settings['views_dir'].'views/css/font-awesome.min.css');
         wp_enqueue_script( 'ikcs-angular', $this->settings['views_dir'].'views/js/libraries/angular.min.js');
         wp_enqueue_script( 'ikcs-app', $this->settings['views_dir'].'views/js/app.js');
     }

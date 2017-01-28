@@ -88,12 +88,21 @@
                                                                 <option value="email">Email</option>
                                                                 <option value="number">Liczba</option>
                                                                 <option value="textarea">Duży obszar tekstowy</option>
-                                                                <option value="cheskbox">Checkbox</option>
+                                                                <option value="checkbox">Checkbox</option>
                                                                 <option value="radio">Radio</option>
                                                                 <option value="link">Link</option>
                                                                 <option value="fa">Font Awesome</option>
                                                                 <option value="repeater_object">Objekt pul</option>
                                                             </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="textarea-fields" data-ng-if="item.type == 'textarea'">
+                                                        <div class="form-item">
+                                                            <div class="form-group">
+                                                                <label class="fg-label"><?php echo __( 'Ilość wierszy', 'ikcs-trans' ); ?></label>
+                                                                <input type="number" data-ng-model="item.textarea_rows" class="form-control form-control-sm" autocomplete="off" />
+                                                            </div>
                                                         </div>
                                                     </div>
 

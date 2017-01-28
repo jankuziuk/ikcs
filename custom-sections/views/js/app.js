@@ -273,6 +273,21 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         axis: 'y'
     };
 
+    $http({
+        method: 'GET',
+        url: ajaxurl,
+        params: {
+            action: 'ikcs_get_fa_json'
+        }
+    }).then(function successCallback(response) {
+        $scope.fa_list = response.data.fa;
+        $scope.fa_preview_index = 0;
+        $scope.fa_preview_key = $scope.fa_list[$scope.fa_preview_index].fa_key;
+        $scope.fa_preview_val = $scope.fa_list[$scope.fa_preview_index].fa_value;
+    }, function errorCallback(response) {
+        console.warn(response);
+    });
+
     $scope.getExistingSections = function () {
         $http({
             method: 'GET',
@@ -317,12 +332,24 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
                 id: id
             }
         }).then(function successCallback(response) {
-            $scope.existingSections.push(response.data.section);
-            console.log($scope.existingSections);
+            $scope.existingSections.push(angular.copy(response.data.section));
             $scope.addNewSectionBefore = false;
         }, function errorCallback(response) {
             console.warn(response);
         });
+    };
+
+    $scope.addRepeaterItem = function (parentIndex, index) {
+        if(typeof $scope.existingSections[parentIndex].fields[index].repeater_items == 'undefined'){
+            $scope.existingSections[parentIndex].fields[index].repeater_items = [];
+        }
+        $scope.existingSections[parentIndex].fields[index].repeater_items.push(angular.copy($scope.existingSections[parentIndex].fields[index].repeater_fields));
+    };
+
+    $scope.selectFaIcon = function (index, key, value) {
+        $scope.fa_preview_index = index;
+        $scope.fa_preview_key = key;
+        $scope.fa_preview_val = value;
     };
 
     $scope.remove_image = function (index) {
