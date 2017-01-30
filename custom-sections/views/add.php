@@ -187,7 +187,7 @@
                                                                         <div class="form-item">
                                                                             <div class="form-group">
                                                                                 <label class="fg-label"><?php echo __( 'Domyślna wartość pola', 'ikcs-trans' ); ?></label>
-                                                                                <input type="text" data-ng-model="subitem.default_value" class="form-control form-control-sm" autocomplete="off" />
+                                                                                <input type="text" data-ng-model="subitem.value" class="form-control form-control-sm" autocomplete="off" />
                                                                             </div>
                                                                         </div>
 
@@ -233,7 +233,7 @@
                                                     <div class="form-item">
                                                         <div class="form-group">
                                                             <label class="fg-label"><?php echo __( 'Domyślna wartość pola', 'ikcs-trans' ); ?></label>
-                                                            <input type="text" data-ng-model="item.default_value" class="form-control form-control-sm" autocomplete="off" />
+                                                            <input type="text" data-ng-model="item.value" class="form-control form-control-sm" autocomplete="off" />
                                                         </div>
                                                     </div>
 

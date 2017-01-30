@@ -1,3 +1,27 @@
 <div class="fa_field">
-    <i class="fa {{ key }}" data-ng-repeat="(key, val) in fa_list">{{ val }}</i>
+    <input
+        type="hidden"
+        data-ng-model="field.value"
+        class="fa-field-input"
+        id="field_{{ item.id }}_{{ field.id }}"
+    />
+    <button
+        type="button"
+        class="ikcs-btn fa_field-select-icon"
+        data-ng-click="showSelectFaIcon('.fa_field-popup', itemIndex, fieldIndex)">
+        <span data-ng-if="field.value == ''">Wybierz ikonę</span>
+        <span data-ng-if="field.value != ''">Zmień ikonę</span>
+    </button>
+    <div class="fa_field-icon" data-ng-if="field.value != ''">
+        <i class="fa {{ field.value }}"></i>
+    </div>
+    <div class="fa_field-icon-name" data-ng-if="field.value != ''">{{ field.value }}</div>
+    <button
+        type="button"
+        class="ikcs-remove"
+        data-ng-if="field.value != ''"
+        data-ng-click="removeFaIcon(itemIndex, fieldIndex)"
+    >
+        <i class="dashicons dashicons-no-alt"></i> Usuń ikonę
+    </button>
 </div>

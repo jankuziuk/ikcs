@@ -139,7 +139,7 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
         var section={
             id: '',
             label: '',
-            default_value: '',
+            value: '',
             repeater_fields: [],
             options: {
                 open: 1,
@@ -347,7 +347,7 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         $scope.existingSections[parentIndex].fields[index].repeater_items.push(angular.copy($scope.existingSections[parentIndex].fields[index].repeater_fields));
     };
 
-    $scope.selectFaIcon = function (index, key, value) {
+    $scope.previewFaIcon = function (index, key, value) {
         $scope.fa_preview_index = index;
         $scope.fa_preview_key = key;
         $scope.fa_preview_val = value;
@@ -391,12 +391,38 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             });
         }
     };
+    $scope.showSelectFaIcon = function (className, itemIndex, fieldIndex) {
+        angular.element(className).show();
+        console.log(className, itemIndex, fieldIndex);
+        $scope.selectFaIcon = function (value) {
+            $scope.existingSections[itemIndex].fields[fieldIndex].value = value;
+            angular.element(className).hide();
+        }
+    };
 
     $scope.showData = function () {
         console.log($scope.existingSections);
     };
 
     $scope.getAllSections();
+    //
+    // jQuery('body').on('click', '.fa_field-select-icon', function (e) {
+    //     e.preventDefault();
+    //     var $button = jQuery(this),
+    //         $parent = $button.closest('.fa_field'),
+    //         $input = $parent.find('.fa-field-input'),
+    //         $icon = $parent.find('.fa_field-icon'),
+    //         $iconLabel = $parent.find('.fa_field-icon-name'),
+    //         $popup = jQuery('.fa_field-popup'),
+    //         $buttonPopup = $popup.find('.fa_field-this-icon');
+    //
+    //     $popup.show();
+    //     $buttonPopup.on('click', function () {
+    //         $input.val($scope.fa_preview_key);
+    //         $icon.html('<i class="fa ' + $scope.fa_preview_key + '"></i>');
+    //         $iconLabel.text($scope.fa_preview_val);
+    //     });
+    // });
 
     jQuery('body').on('click', '[data-show-popup]', function (e) {
         e.preventDefault();

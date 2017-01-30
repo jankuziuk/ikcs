@@ -1,4 +1,4 @@
-<div class="ikcs-popup-wrap">
+<div class="ikcs-popup-wrap fa_field-popup">
     <div class="display-table">
         <div class="table-row">
             <div class="table-col">
@@ -16,12 +16,17 @@
                                 <i class="fa {{ fa_preview_key }}"></i>
                             </div>
                         </div>
+                        <button
+                            type="button"
+                            class="ikcs-btn ikcs-btn-block"
+                            data-ng-click="selectFaIcon(fa_preview_key)"
+                        >Wybierz</button>
                     </div>
                     <div class="fa-popup-list">
                         <div
                             class="fa-popup-item"
                             data-ng-repeat="item in fa_list|filter:search"
-                            data-ng-click="selectFaIcon($index, item.fa_key, item.fa_value)"
+                            data-ng-click="previewFaIcon($index, item.fa_key, item.fa_value)"
                             data-ng-class="fa_preview_index == $index ? 'fa-active' : ''"
                         >
                             <i class="fa {{ item.fa_key }}"></i>{{ item.fa_value }}

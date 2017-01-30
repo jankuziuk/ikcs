@@ -519,6 +519,31 @@
     margin: 0;
 }
 
+.ikcs .fa_field-icon{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 8px;
+    height: 41px;
+    line-height: 41px;
+    font-size: 20px;
+    width: 41px;
+    text-align: center;
+    background: #1c61a5;
+    color: #fff;
+}
+
+.fa_field-icon-name{
+    display: inline-block;
+    vertical-align: top;
+    height: 41px;
+    padding: 5px 20px;
+    color: #fff;
+    font-size: 17px;
+    line-height: 31px;
+    margin-left: -4px;
+    background: #1976D2;
+}
+
 .ikcs-popup-wrap{
     position: fixed;
     top:0;
@@ -530,6 +555,7 @@
     z-index: 100000;
     overflow: hidden;
     overflow-y: auto;
+    display: none;
 }
 
 .ikcs-popup-content{
