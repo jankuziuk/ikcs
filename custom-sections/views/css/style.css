@@ -869,6 +869,10 @@
     box-shadow: inset 0 0 0 transparent,0 0 0 transparent !important;
 }
 
+.ikcs .add-checkbox_radio{
+    margin-top: 10px;
+}
+
 .ikcs .radio-item,
 .ikcs .checkbox-item,
 .ikcs .switch-item {
@@ -1064,6 +1068,21 @@
     box-shadow: 0 0 0 transparent !important;
 }
 
+.ikcs .display-table.no-bg .table-row{
+    background: none;
+}
+.ikcs .display-table.small-table .table-col{
+    height: 40px !important;
+    padding: 6px 10px;
+}
+.ikcs .display-table .table-col.pd-right-only{
+    padding-left: 0;
+    padding-right: 10px;
+}
+.ikcs .display-table .table-col.pd-left-only{
+    padding-right: 0;
+    padding-left: 10px;
+}
 .ikcs .table-col.v-top{
     vertical-align: top;
 }
@@ -1089,6 +1108,10 @@
 .ikcs .table-actions{
     width: 120px;
     text-align: right;
+}
+
+.ikcs .table-checkbox-default{
+    width: 160px;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

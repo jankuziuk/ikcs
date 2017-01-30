@@ -1,1 +1,13 @@
-Radio
+<div data-ng-if="field.field_options.length>0">
+    <label class="radio-item radio-inline" data-ng-repeat="(checkboxIndex, radio) in field.field_options">
+        <input
+                type="radio"
+                name="field_{{ item.id }}_{{ field.id }}"
+                data-ng-model="field.field_option_checked"
+                value="{{ radio.value }}"
+        />
+        <span class="crs-icon"></span>
+        <span class="crs-text">{{ radio.label }}</span>
+    </label>
+</div>
+<div data-ng-if="!field.field_options.length">{{ languages.name_value_not_defined }}</div>

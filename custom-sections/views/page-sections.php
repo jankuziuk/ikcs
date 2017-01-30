@@ -215,6 +215,7 @@
                                     <div data-ng-if="field.type == 'textarea'" data-ng-include="'<?php echo $tmpPath; ?>textarea.html'"></div>
                                     <div data-ng-if="field.type == 'checkbox'" data-ng-include="'<?php echo $tmpPath; ?>checkbox.html'"></div>
                                     <div data-ng-if="field.type == 'radio'" data-ng-include="'<?php echo $tmpPath; ?>radio.html'"></div>
+                                    <div data-ng-if="field.type == 'trueorfalse'" data-ng-include="'<?php echo $tmpPath; ?>trueorfalse.html'"></div>
                                     <div data-ng-if="field.type == 'fa'" data-ng-include="'<?php echo $tmpPath; ?>fa.html'"></div>
 
                                     <div ng-if="field.type == 'repeater_object'" class="repeater-items">
@@ -308,6 +309,14 @@
             </button>
 
             <div data-ng-include="'<?php echo $tmpPath; ?>fa_popup.html'"></div>
+            <script>
+                var languages = {
+                    "select_icon": "<?php echo __( 'Wybierz ikonę', 'ikcs-trans' ); ?>",
+                    "edit_icon": "<?php echo __( 'Zmień ikonę', 'ikcs-trans' ); ?>",
+                    "remove_icon": "<?php echo __( 'Usuń ikonę', 'ikcs-trans' ); ?>",
+                    "name_value_not_defined": "<?php echo __( 'Nie zdefiniowałeś elementów', 'ikcs-trans' ); ?>"
+                }
+            </script>
 
 
         </div>

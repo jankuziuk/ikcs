@@ -1,1 +1,14 @@
-Checkbox
+<div data-ng-if="field.field_options.length>0">
+    <label class="checkbox-item checkbox-inline" data-ng-repeat="(checkboxIndex, checkbox) in field.field_options">
+        <input
+            type="checkbox"
+            name="field_{{ item.id }}_{{ field.id }}_{{ checkbox.value }}"
+            data-ng-model="checkbox.checked"
+            value="{{ checkbox.value }}"
+            data-ng-checked="checkbox.checked"
+        />
+        <span class="crs-icon"></span>
+        <span class="crs-text">{{ checkbox.label }}</span>
+    </label>
+</div>
+<div data-ng-if="!field.field_options.length">{{ languages.name_value_not_defined }}</div>
