@@ -536,12 +536,16 @@
     display: inline-block;
     vertical-align: top;
     height: 41px;
-    padding: 5px 20px;
+    padding: 3px 2px 3px 20px;
     color: #fff;
     font-size: 17px;
     line-height: 31px;
     margin-left: -4px;
     background: #1976D2;
+}
+
+.fa_field-icon-name .ikcs-btn-trash{
+    margin-left: 20px;
 }
 
 .ikcs-popup-wrap{
@@ -570,6 +574,34 @@
     padding: 20px;
 }
 
+.ikcs-popup-header{
+    position: relative;
+    margin: -20px -20px 20px;
+    padding: 15px 70px 15px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    font-size: 24px;
+}
+
+.ikcs-popup-close{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    -moz-transform: translate3d(0, -50%, 0);
+    -webkit-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+    cursor: pointer;
+}
+
+.ikcs-popup-close i{
+    font-size: 37px;
+    width: 34px;
+    height: 34px;
+}
+.ikcs-popup-close i:hover{
+    color: #1976D2;
+}
 .fa-popup-search{
     margin-bottom: 20px;
 }

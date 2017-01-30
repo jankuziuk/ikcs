@@ -204,6 +204,13 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
         }
     };
 
+    $scope.addCheckboxItem = function (index) {
+        if(typeof $scope.ikcsAdd.fields[index].checkboxes == "undefined"){
+            $scope.ikcsAdd.fields[index].checkboxes = [];
+        }
+        $scope.ikcsAdd.fields[index].checkboxes.push({value: "", label: ""});
+    };
+
     $scope.getInfoByID = function (id) {
         $http({
             method: 'POST',
@@ -393,11 +400,18 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     };
     $scope.showSelectFaIcon = function (className, itemIndex, fieldIndex) {
         angular.element(className).show();
-        console.log(className, itemIndex, fieldIndex);
         $scope.selectFaIcon = function (value) {
             $scope.existingSections[itemIndex].fields[fieldIndex].value = value;
             angular.element(className).hide();
         }
+    };
+
+    $scope.hidePopup = function (className) {
+        angular.element(className).hide();
+    };
+
+    $scope.removeFaIcon = function (itemIndex, fieldIndex) {
+        $scope.existingSections[itemIndex].fields[fieldIndex].value = '';
     };
 
     $scope.showData = function () {

@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                     <div class="ikcs_items" data-ng-if="ikcsAdd.fields.length > 0" ui-sortable="sortableOptions" ng-model="ikcsAdd.fields">
-                                        <div class="ikcs_item ikcs-card" data-ng-repeat="item in ikcsAdd.fields" data-as-sortable-item>
+                                        <div class="ikcs_item ikcs-card" data-ng-repeat="(itemIndex, item) in ikcsAdd.fields" data-as-sortable-item>
 
                                             <div class="ikcs_head ikcs-card-header ikcs-card-header-sort">
                                                 <div>
@@ -87,13 +87,50 @@
                                                                 <option value="tel">Telefon</option>
                                                                 <option value="email">Email</option>
                                                                 <option value="number">Liczba</option>
+                                                                <option value="link">Link</option>
                                                                 <option value="textarea">Duży obszar tekstowy</option>
                                                                 <option value="checkbox">Checkbox</option>
                                                                 <option value="radio">Radio</option>
-                                                                <option value="link">Link</option>
+                                                                <option value="trueorfalse">True or false</option>
                                                                 <option value="fa">Font Awesome</option>
                                                                 <option value="repeater_object">Objekt pul</option>
                                                             </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="checkbox_radio-fields" data-ng-if="item.type == 'checkbox'">
+                                                        <div class="form-item">
+                                                            <div class="form-group">
+                                                                <label class="fg-label"><?php echo __( 'Dodaj elementy', 'ikcs-trans' ); ?></label>
+                                                                <div data-ng-repeat="checkbox in item.checkboxes">
+                                                                    <div class="row">
+                                                                        <div class="column">
+                                                                            <div class="form-item">
+                                                                                <div class="form-group">
+                                                                                    <label class="fg-label"><?php echo __( 'Value', 'ikcs-trans' ); ?></label>
+                                                                                    <input type="text" data-ng-model="checkbox.value" class="form-control form-control-sm" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="column">
+                                                                            <div class="form-item">
+                                                                                <div class="form-group">
+                                                                                    <label class="fg-label"><?php echo __( 'Label', 'ikcs-trans' ); ?></label>
+                                                                                    <input type="text" data-ng-model="checkbox.label" class="form-control form-control-sm" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="add-checkbox_radio">
+                                                                    <button
+                                                                        type="button"
+                                                                        class="ikcs-btn"
+                                                                        data-ng-click="addCheckboxItem(itemIndex)">
+                                                                        <?php echo __( 'Dodaj element', 'ikcs-trans' ); ?>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -172,12 +209,12 @@
                                                                             <div class="radio-label fg-label"><?php echo __('Czy to pole jest wymagane ?', 'ikcs-trans' ); ?></div>
                                                                             <div>
                                                                                 <label class="radio-item radio-inline">
-                                                                                    <input type="radio" name="fields[options][required]" data-ng-model="subitem.options.required" value="on" />
+                                                                                    <input type="radio" name="fields[{{itemIndex}}][{{$index}}][options][required]" data-ng-model="subitem.options.required" value="on" />
                                                                                     <span class="crs-icon"></span>
                                                                                     <span class="crs-text"><?php echo __( 'Tak', 'ikcs-trans' ); ?></span>
                                                                                 </label>
                                                                                 <label class="radio-item radio-inline">
-                                                                                    <input type="radio" name="fields[options][required]" data-ng-model="subitem.options.required" value="off" />
+                                                                                    <input type="radio" name="fields[{{itemIndex}}][{{$index}}][options][required]" data-ng-model="subitem.options.required" value="off" />
                                                                                     <span class="crs-icon"></span>
                                                                                     <span class="crs-text"><?php echo __( 'Nie', 'ikcs-trans' ); ?></span>
                                                                                 </label>
@@ -218,12 +255,12 @@
                                                         <div class="radio-label fg-label"><?php echo __('Czy to pole jest wymagane ?', 'ikcs-trans' ); ?></div>
                                                         <div>
                                                             <label class="radio-item radio-inline">
-                                                                <input type="radio" name="fields[options][required]" data-ng-model="item.options.required" value="on" />
+                                                                <input type="radio" name="fields[{{itemIndex}}][options][required]" data-ng-model="item.options.required" value="on" />
                                                                 <span class="crs-icon"></span>
                                                                 <span class="crs-text"><?php echo __( 'Tak', 'ikcs-trans' ); ?></span>
                                                             </label>
                                                             <label class="radio-item radio-inline">
-                                                                <input type="radio" name="fields[options][required]" data-ng-model="item.options.required" value="off" />
+                                                                <input type="radio" name="fields[{{itemIndex}}][options][required]" data-ng-model="item.options.required" value="off" />
                                                                 <span class="crs-icon"></span>
                                                                 <span class="crs-text"><?php echo __( 'Nie', 'ikcs-trans' ); ?></span>
                                                             </label>

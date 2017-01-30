@@ -3,7 +3,10 @@
         <div class="table-row">
             <div class="table-col">
                 <div class="ikcs-popup-content">
-                    <div class="ikcs-popup-header">Wybierz ikonke</div>
+                    <div class="ikcs-popup-header">
+                        Wybierz ikonke
+                        <div class="ikcs-popup-close" data-ng-click="hidePopup('.fa_field-popup')"><i class="dashicons dashicons-no"></i></div>
+                    </div>
                     <div class="fa-popup-search">
                         <input type="text" class="form-control" data-ng-model="search.fa_value" />
                     </div>

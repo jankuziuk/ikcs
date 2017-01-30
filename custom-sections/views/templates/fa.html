@@ -5,6 +5,7 @@
         class="fa-field-input"
         id="field_{{ item.id }}_{{ field.id }}"
     />
+
     <button
         type="button"
         class="ikcs-btn fa_field-select-icon"
@@ -12,16 +13,21 @@
         <span data-ng-if="field.value == ''">Wybierz ikonę</span>
         <span data-ng-if="field.value != ''">Zmień ikonę</span>
     </button>
+
     <div class="fa_field-icon" data-ng-if="field.value != ''">
         <i class="fa {{ field.value }}"></i>
     </div>
-    <div class="fa_field-icon-name" data-ng-if="field.value != ''">{{ field.value }}</div>
-    <button
-        type="button"
-        class="ikcs-remove"
-        data-ng-if="field.value != ''"
-        data-ng-click="removeFaIcon(itemIndex, fieldIndex)"
-    >
-        <i class="dashicons dashicons-no-alt"></i> Usuń ikonę
-    </button>
+
+    <div class="fa_field-icon-name" data-ng-if="field.value != ''">
+        {{ field.value }}
+        <button
+                type="button"
+                data-ng-click="removeFaIcon(itemIndex, fieldIndex)"
+                class="ikcs-btn ikcs-btn-dash ikcs-btn-trash"
+                data-balloon="Usuń ikonę"
+                data-balloon-pos="down"
+        >
+            <i class="dashicons dashicons-trash"></i>
+        </button>
+    </div>
 </div>
