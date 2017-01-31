@@ -203,70 +203,16 @@
                     </div>
                     <div class="section-fields">
                         <div class="mp-inner-title">Zdefiniowane pola</div>
-                        <div class="display-table">
-                            <div class="table-row fielsd_type_{{ field.type }}" data-ng-repeat="(fieldIndex, field) in item.fields">
-                                <div class="table-col table-fields-label">
-                                    <label class="fg-label" ng-if="field.type != 'repeater_object'" for="field_{{ item.id }}_{{ field.id }}">{{ field.label }}</label>
-                                </div>
-                                <div class="table-col">
+                        <div
+                            class="display-table"
+                            ng-init="parent = item"
+                        >
+                            <div
+                                class="table-row fielsd_type_{{ field.type }}"
+                                data-ng-repeat="(fieldIndex, field) in item.fields"
+                                data-ng-include="'item.html'"
+                            >
 
-                                    <div data-ng-if="field.type == 'text' || field.type == 'tel' || field.type == 'email' || field.type == 'number'" data-ng-include="'<?php echo $tmpPath; ?>input.html'"></div>
-                                    <div data-ng-if="field.type == 'link'" data-ng-include="'<?php echo $tmpPath; ?>link.html'"></div>
-                                    <div data-ng-if="field.type == 'textarea'" data-ng-include="'<?php echo $tmpPath; ?>textarea.html'"></div>
-                                    <div data-ng-if="field.type == 'checkbox'" data-ng-include="'<?php echo $tmpPath; ?>checkbox.html'"></div>
-                                    <div data-ng-if="field.type == 'radio'" data-ng-include="'<?php echo $tmpPath; ?>radio.html'"></div>
-                                    <div data-ng-if="field.type == 'trueorfalse'" data-ng-include="'<?php echo $tmpPath; ?>trueorfalse.html'"></div>
-                                    <div data-ng-if="field.type == 'fa'" data-ng-include="'<?php echo $tmpPath; ?>fa.html'"></div>
-
-                                    <div ng-if="field.type == 'repeater_object'" class="repeater-items">
-                                        <div class="mp-inner-title">{{ field.label }}</div>
-                                        <div class="repeater" data-ng-repeat="r_items in field.repeater_items">
-                                            <div class="display-table">
-
-                                                <div class="table-row" data-ng-repeat="r_field in r_items">
-                                                    <div class="table-col table-fields-label">
-                                                        <label class="fg-label" for="field_{{ item.id }}_{{ field.id }}_{{ r_field.id }}">{{ r_field.label }}</label>
-                                                    </div>
-                                                    <div class="table-col">
-                                                        <div data-ng-if="r_field.type == 'text' || r_field.type == 'tel' || r_field.type == 'email' || r_field.type == 'number'">
-                                                            <input
-                                                                type="{{ r_field.type }}"
-                                                                data-ng-model="r_field.value"
-                                                                class="form-control form-control-sm"
-                                                                id="field_{{ item.id }}_{{ field.id }}_{{ r_field.id }}"
-                                                            />
-                                                        </div>
-
-                                                        <div ng-if="r_field.type == 'link'">
-                                                            <input
-                                                                type="text"
-                                                                data-ng-model="r_field.value"
-                                                                class="form-control form-control-sm"
-                                                                id="field_{{ item.id }}_{{ field.id }}_{{ r_field.id }}"
-                                                            />
-                                                        </div>
-
-                                                        <div ng-if="r_field.type == 'textarea'">
-                                                            <textarea
-                                                                class="form-control form-control-sm"
-                                                                data-ng-model="r_field.value"
-                                                                data-ng-attr-rows="{{r_field.textarea_rows || '4'}}"
-                                                                id="field_{{ item.id }}_{{ field.id }}_{{ r_field.id }}"
-                                                            ></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button
-                                            type="button"
-                                            class="ikcs-btn"
-                                            data-ng-click="addRepeaterItem(itemIndex, fieldIndex)"
-                                            >
-                                            <?php echo __( 'Dodaj', 'ikcs-trans' ); ?>
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -307,6 +253,66 @@
             >
                 <?php echo __( 'Show data', 'ikcs-trans' ); ?>
             </button>
+
+            <script type="text/ng-template" id="item.html">
+                <div class="table-col table-fields-label">
+                    <label class="fg-label" ng-if="field.type != 'repeater_object'" for="field_{{ item.id }}_{{ field.id }}">{{ field.label }}</label>
+                </div>
+                <div class="table-col">
+
+                    <div data-ng-if="field.type == 'text' || field.type == 'tel' || field.type == 'email' || field.type == 'number'" data-ng-include="'<?php echo $tmpPath; ?>input.html'"></div>
+                    <div data-ng-if="field.type == 'link'" data-ng-include="'<?php echo $tmpPath; ?>link.html'"></div>
+                    <div data-ng-if="field.type == 'textarea'" data-ng-include="'<?php echo $tmpPath; ?>textarea.html'"></div>
+                    <div data-ng-if="field.type == 'checkbox'" data-ng-include="'<?php echo $tmpPath; ?>checkbox.html'"></div>
+                    <div data-ng-if="field.type == 'radio'" data-ng-include="'<?php echo $tmpPath; ?>radio.html'"></div>
+                    <div data-ng-if="field.type == 'trueorfalse'" data-ng-include="'<?php echo $tmpPath; ?>trueorfalse.html'"></div>
+                    <div data-ng-if="field.type == 'fa'" data-ng-include="'<?php echo $tmpPath; ?>fa.html'"></div>
+
+                    <div ng-if="field.type == 'repeater_object'" class="repeater-items">
+                        <div class="mp-inner-title">
+                            {{ field.label }}
+                        </div>
+                        <div ui-sortable="sortableOptions">
+                            <div class="repeater"
+                                 data-ng-init="parent = field.repeater_items"
+                                 data-ng-repeat="r_items in field.repeater_items"
+                            >
+                                <div class="counter"><span>{{ $index + 1 }}</span></div>
+                                <div class="display-table">
+                                    <div class="table-row fielsd_type_{{ field.type }}"
+                                         data-ng-repeat="field in r_items"
+                                         data-ng-include="'item.html'"
+                                         data-as-sortable-item
+                                    >
+                                    </div>
+                                </div>
+                                <div class="remove-repeater-item">
+                                    <button
+                                        type="button"
+                                        data-ng-click="removeItem(parent, $index)"
+                                        class="ikcs-btn ikcs-btn-dash ikcs-btn-trash"
+                                        data-balloon="<?php echo __( 'Usuń', 'ikcs-trans' ); ?>"
+                                        data-balloon-pos="down"
+                                    >
+                                        <i class="dashicons dashicons-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-new-item">
+                            <button
+                                type="button"
+                                class="ikcs-btn ikcs-btn-dash"
+                                data-ng-click="addRepeaterItem(field)"
+                                data-balloon="<?php echo __( 'Dodaj element do: ', 'ikcs-trans' ); ?> '{{ field.label }}'"
+                                data-balloon-pos="down"
+                            >
+                                <i class="dashicons dashicons-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </script>
 
             <div data-ng-include="'<?php echo $tmpPath; ?>fa_popup.html'"></div>
             <script>

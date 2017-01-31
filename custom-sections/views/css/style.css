@@ -497,26 +497,94 @@
 }
 
 .ikcs .table-col.table-fields-label{
+    background: #f1f1f1;
     width: 33.3333333%;
     border-right: 1px solid rgba(0, 0, 0, .1);
 }
 
 .ikcs .repeater-items{
     margin-left: -50%;
+    border-left: 1px solid #7c9bab;
+    border-right: 1px solid #7c9bab;
+}
+
+.ikcs .repeater-items .add-new-item{
+    background: #f1f1f1;
+    padding: 10px;
+}
+
+.ikcs .repeater-items .repeater-items{
+    /*margin-left: 0;*/
+    border-right: 0;
+    border-left: 0;
+    border-left: 5px solid #7c9bab;
 }
 
 .ikcs .fielsd_type_repeater_object>.table-col{
     padding: 0!important;
-    border: 0!important;
+    border-top: 1px solid #7c9bab;
+    border-bottom: 1px solid #7c9bab;
 }
 .ikcs .repeater-items .mp-inner-title{
     background: #7c9bab;
 }
 .ikcs .repeater-items .repeater{
-    background: rgba(162, 162, 162, .06);
-    border: 1px solid #7c9bab;
-    padding: 0;
+    position: relative;
+    background: #fff;
+    padding: 0 0 0 40px;
     margin: 0;
+    border: 0;
+    border-bottom: 1px solid #7c9bab;
+}
+
+.ikcs .remove-repeater-item{
+    padding: 10px;
+    text-align: right;
+    border-top: 1px solid #7c9bab;
+}
+
+.ikcs .repeater-items .repeater .counter{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    text-align: center;
+    background: #d6d6d6;
+    border-right: 1px solid #7c9bab;
+    color: #59666d;
+    font-size: 24px;
+}
+
+.ikcs .repeater-items .repeater .counter span{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    -moz-transform: translate3d(0, -50%, 0);
+    -webkit-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+}
+
+.ikcs .repeater-items .repeater,
+.ikcs .repeater-items .repeater .counter,
+.ikcs .repeater-items .repeater .table-col.table-fields-label,
+.ikcs .repeater-items .repeater .table-row{
+    -webkit-transition: background 350ms ease;
+    -moz-transition: background 350ms ease;
+    -ms-transition: background 350ms ease;
+    -o-transition: background 350ms ease;
+    transition: background 350ms ease;
+}
+.ikcs .repeater-items .repeater.removehovered .counter{
+    background: #EF9A9A;
+}
+.ikcs .repeater-items .repeater.removehovered,
+.ikcs .repeater-items .repeater.removehovered .table-col.table-fields-label,
+.ikcs .repeater-items .repeater.removehovered .table-row{
+    background: #FFEBEE;
 }
 
 .ikcs .fa_field-icon{

@@ -313,11 +313,15 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         });
     };
 
-    $scope.addRepeaterItem = function (parentIndex, index) {
-        if(typeof $scope.existingSections[parentIndex].fields[index].repeater_items == 'undefined'){
-            $scope.existingSections[parentIndex].fields[index].repeater_items = [];
+    $scope.addRepeaterItem = function (data) {
+        if(typeof data.repeater_items == "undefined"){
+            data.repeater_items = [];
         }
-        $scope.existingSections[parentIndex].fields[index].repeater_items.push(angular.copy($scope.existingSections[parentIndex].fields[index].repeater_fields));
+        data.repeater_items.push(angular.copy(data.repeater_fields));
+    };
+
+    $scope.removeItem = function (array, index) {
+        array.splice(index, 1);
     };
 
     $scope.previewFaIcon = function (index, key, value) {
@@ -364,6 +368,7 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             });
         }
     };
+
     $scope.showSelectFaIcon = function (className, itemIndex, fieldIndex) {
         angular.element(className).show();
         $scope.selectFaIcon = function (value) {
@@ -384,25 +389,12 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         console.log($scope.existingSections);
     };
 
+    $scope.removeHoverItem = function () {
+        console.log(angular.element(this));
+        angular.element(this).closest('.repeater').addClass('removehovered');
+    };
+
     $scope.getAllSections();
-    //
-    // jQuery('body').on('click', '.fa_field-select-icon', function (e) {
-    //     e.preventDefault();
-    //     var $button = jQuery(this),
-    //         $parent = $button.closest('.fa_field'),
-    //         $input = $parent.find('.fa-field-input'),
-    //         $icon = $parent.find('.fa_field-icon'),
-    //         $iconLabel = $parent.find('.fa_field-icon-name'),
-    //         $popup = jQuery('.fa_field-popup'),
-    //         $buttonPopup = $popup.find('.fa_field-this-icon');
-    //
-    //     $popup.show();
-    //     $buttonPopup.on('click', function () {
-    //         $input.val($scope.fa_preview_key);
-    //         $icon.html('<i class="fa ' + $scope.fa_preview_key + '"></i>');
-    //         $iconLabel.text($scope.fa_preview_val);
-    //     });
-    // });
 
     jQuery('body').on('click', '[data-show-popup]', function (e) {
         e.preventDefault();
@@ -430,6 +422,12 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
             jQuery(jQuery('[data-show-popup]').attr('data-show-popup')).addClass('hidden');
         }
     });
+
+    jQuery('body').on('mouseover', '.remove-repeater-item button', function () {
+        jQuery(this).closest('.repeater').addClass('removehovered');
+    }).on('mouseout', '.remove-repeater-item button', function () {
+        jQuery(this).closest('.repeater').removeClass('removehovered');
+    })
 
 }]);
 
