@@ -35,26 +35,24 @@ function ikcs_views_path(){
     return $options['views_dir']. 'views';
 }
 
-function misha_image_uploader_field( $name, $value = '') {
-    $image = ' button">Upload image';
-    $image_size = 'full'; // it would be better to use thumbnail size here (150x150 or so)
-    $display = 'none'; // display state ot the "Remove image" button
+function get_image_sizes() {
+    global $_wp_additional_image_sizes;
 
-    if( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
+    $sizes = array();
 
-        // $image_attributes[0] - image URL
-        // $image_attributes[1] - image width
-        // $image_attributes[2] - image height
-
-        $image = '"><img src="' . $image_attributes[0] . '" style="max-width:95%;display:block;" />';
-        $display = 'inline-block';
-
+    foreach ( get_intermediate_image_sizes() as $_size ) {
+        if ( in_array( $_size, array('thumbnail', 'medium', 'medium_large', 'large') ) ) {
+            $sizes[ $_size ]['width']  = get_option( "{$_size}_size_w" );
+            $sizes[ $_size ]['height'] = get_option( "{$_size}_size_h" );
+            $sizes[ $_size ]['crop']   = (bool) get_option( "{$_size}_crop" );
+        } elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+            $sizes[ $_size ] = array(
+                'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
+                'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+                'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
+            );
+        }
     }
 
-    return '
-	<div>
-		<a href="#" class="misha_upload_image_button' . $image . '</a>
-		<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '" />
-		<a href="#" class="misha_remove_image_button" style="display:inline-block;display:' . $display . '">Remove image</a>
-	</div>';
+    return $sizes;
 }

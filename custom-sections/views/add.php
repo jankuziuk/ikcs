@@ -267,6 +267,9 @@
                                         <option value="number">Liczba</option>
                                         <option value="link">Link</option>
                                         <option value="textarea">Duży obszar tekstowy (Textarea)</option>
+                                        <option value="image">Obrazek</option>
+                                        <option value="colorpicker">Wybór koloru (Color picker)</option>
+                                        <option value="select">Lista wyboró (Select)</option>
                                         <option value="checkbox">Akceptowanie (Checkbox)</option>
                                         <option value="radio">Pole wyboru (Radio)</option>
                                         <option value="trueorfalse">Tak lub nie (true/false)</option>
@@ -316,10 +319,9 @@
                                     <label class="radio-item radio-inline">
                                         <input
                                             type="radio"
-                                            name="fields[{{itemIndex}}][required]"
+                                            name="fields[{{itemIndex}}][{{item.id}}][required]"
                                             data-ng-model="item.required"
-                                            data-ng-value="true"
-                                            value="true"
+                                            value="on"
                                         />
                                         <span class="crs-icon"></span>
                                         <span class="crs-text"><?php echo __( 'Tak', 'ikcs-trans' ); ?></span>
@@ -327,10 +329,9 @@
                                     <label class="radio-item radio-inline">
                                         <input
                                             type="radio"
-                                            name="fields[{{itemIndex}}][required]"
+                                            name="fields[{{itemIndex}}][{{item.id}}][required]"
                                             data-ng-model="item.required"
-                                            data-ng-value="false"
-                                            value="false"
+                                            value="off"
                                         />
                                         <span class="crs-icon"></span>
                                         <span class="crs-text"><?php echo __( 'Nie', 'ikcs-trans' ); ?></span>
@@ -338,12 +339,34 @@
                                 </div>
                             </div>
 
+                            <!-- Ustawienia dla koloru -->
+                            <div data-ng-if="item.type == 'colorpicker'">
+                                <div class="form-item">
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-sm color_picker"
+                                        data-ng-model="item.value"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Ustawienia dla obrazków -->
+                            <div data-ng-if="item.type == 'image'">
+                                <div class="form-item">
+                                    <label class="fg-label"><?php echo __( 'Wybierz rozmiar obrazków', 'ikcs-trans' ); ?></label>
+                                    <select data-ng-model="item.image_size" class="form-control form-control-sm">
+                                        <option value="full"><?php echo __( 'Pełny rozmiar', 'ikcs-trans' ); ?></option>
+                                        <option value="{{ name }}" data-ng-repeat="(name, options) in imageSizes">{{ name }} ({{options.width}}x{{options.height}})</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- Dodnie elementów dla checkbox i radio -->
-                            <div class="checkbox_radio-fields" data-ng-if="item.type == 'checkbox' || item.type == 'radio'">
+                            <div class="checkbox_radio-fields" data-ng-if="item.type == 'checkbox' || item.type == 'radio' || item.type == 'select'">
                                 <div class="form-item">
                                     <div class="mp-inner-title"><?php echo __( 'Opcje', 'ikcs-trans' ); ?></div>
                                     <div class="display-table no-bg small-table">
-                                        <div class="table-row" data-ng-repeat="option in item.field_options">
+                                        <div class="table-row" data-ng-init="parent = item.field_options" data-ng-repeat="option in item.field_options">
                                             <div class="table-col pd-right-only table-checkbox-default" data-ng-if="item.type == 'checkbox'">
                                                 <div class="form-group">
                                                     <label class="fg-label">&nbsp;</label>
@@ -382,6 +405,20 @@
                                                     />
                                                 </div>
                                             </div>
+                                            <div class="table-col table-col-trash pd-left-only pd-right-only">
+                                                <label class="fg-label">&nbsp;</label>
+                                                <div>
+                                                    <button
+                                                        type="button"
+                                                        data-ng-click="removeOptionItem(parent, $index)"
+                                                        class="ikcs-btn ikcs-btn-dash ikcs-btn-trash"
+                                                        data-balloon="<?php echo __( 'Usuń', 'ikcs-trans' ); ?>"
+                                                        data-balloon-pos="down"
+                                                    >
+                                                        <i class="dashicons dashicons-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -389,7 +426,7 @@
                                         <button
                                             type="button"
                                             class="ikcs-btn"
-                                            data-ng-click="addCheckboxItem(itemIndex)">
+                                            data-ng-click="addOptionItem(item)">
                                             <?php echo __( 'Dodaj element', 'ikcs-trans' ); ?>
                                         </button>
                                     </div>
@@ -422,7 +459,7 @@
                                 </label>
                             </div>
 
-                            <div class="form-item" data-ng-if="item.type != 'checkbox' && item.type != 'radio' && item.type != 'trueorfalse' && item.type != 'fa' && item.type != 'repeater_object'">
+                            <div class="form-item" data-ng-if="item.type == 'text' && item.type == 'tel' && item.type == 'email' && item.type == 'number'">
                                 <div class="form-group">
                                     <label class="fg-label"><?php echo __( 'Domyślna wartość pola', 'ikcs-trans' ); ?></label>
                                     <input
@@ -476,4 +513,9 @@
             </form>
         </div>
     </div>
+
+    <script>
+        var imageSizes = <?php echo json_encode(get_image_sizes()); ?>;
+    </script>
+
 </div>

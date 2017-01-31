@@ -113,8 +113,6 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
             show_select_bg: 1,
             show_select_margin: 1,
             show_custom_css: 1,
-            bg_img_id: false,
-            bg_img_url: '',
             margin: {
                 top: 10,
                 left: 0,
@@ -129,6 +127,9 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
             }
         }
     };
+    $scope.imageSizes = imageSizes;
+
+    console.log($scope.imageSizes);
 
     $scope.sortableOptions = {
         cursor: "move",
@@ -141,7 +142,7 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
             label: '',
             value: '',
             open: true,
-            required: false
+            required: 'off'
         };
         $scope.ikcsAdd.fields.push(section);
         console.log($scope.ikcsAdd);
@@ -153,7 +154,7 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
             label: '',
             value: '',
             open: true,
-            required: false
+            required: 'off'
         };
         if(typeof data.repeater_fields == "undefined"){
             data.repeater_fields = [];
@@ -169,11 +170,15 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
         }
     };
 
-    $scope.addCheckboxItem = function (index) {
-        if(typeof $scope.ikcsAdd.fields[index].field_options == "undefined"){
-            $scope.ikcsAdd.fields[index].field_options = [];
+    $scope.addOptionItem = function (data) {
+        if(typeof data.field_options == "undefined"){
+            data.field_options = [];
         }
-        $scope.ikcsAdd.fields[index].field_options.push({value: "", label: ""});
+        data.field_options.push({value: "", label: ""});
+    };
+
+    $scope.removeOptionItem = function (data, index) {
+        data.splice(index, 1);
     };
 
     $scope.getInfoByID = function (id) {
@@ -320,24 +325,12 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         data.repeater_items.push(angular.copy(data.repeater_fields));
     };
 
-    $scope.removeItem = function (array, index) {
+    $scope.removeRepeaterItem = function (array, index) {
         array.splice(index, 1);
     };
 
-    $scope.previewFaIcon = function (index, key, value) {
-        $scope.fa_preview_index = index;
-        $scope.fa_preview_key = key;
-        $scope.fa_preview_val = value;
-    };
-
-    $scope.remove_image = function (index) {
-        $scope.existingSections[index].settings.bg_img_id = false;
-        $scope.existingSections[index].settings.bg_img_url = '';
-    };
-
-    $scope.upload_image = function(index) {
-        var uploader,
-            field_index = index;
+    $scope.upload_img = function(data) {
+        var uploader;
         uploader = wp.media.frames.file_frame = wp.media({
             title: 'Wybierz logo',
             button: {
@@ -348,11 +341,18 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         uploader.on('select', function() {
             var attachment = uploader.state().get('selection').first().toJSON();
             $scope.$apply(function () {
-                $scope.existingSections[field_index].settings.bg_img_id = attachment.id;
-                $scope.existingSections[field_index].settings.bg_img_url = attachment.url;
+                data.attachment_id = attachment.id;
+                data.attachment_url = attachment.url;
+                data.has_attachment = true;
             });
         });
         uploader.open();
+    };
+
+    $scope.remove_img = function (data) {
+        data.has_attachment = false;
+        delete data.attachment_id;
+        delete data.attachment_url;
     };
 
     $scope.initColorPicker = function (type, index) {
@@ -369,29 +369,30 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         }
     };
 
-    $scope.showSelectFaIcon = function (className, itemIndex, fieldIndex) {
+    $scope.showSelectFaIcon = function (className, data) {
         angular.element(className).show();
         $scope.selectFaIcon = function (value) {
-            $scope.existingSections[itemIndex].fields[fieldIndex].value = value;
+            data.value = value;
             angular.element(className).hide();
         }
+    };
+
+    $scope.removeFaIcon = function (data) {
+        data.value = '';
+    };
+
+    $scope.previewFaIcon = function (index, key, value) {
+        $scope.fa_preview_index = index;
+        $scope.fa_preview_key = key;
+        $scope.fa_preview_val = value;
     };
 
     $scope.hidePopup = function (className) {
         angular.element(className).hide();
     };
 
-    $scope.removeFaIcon = function (itemIndex, fieldIndex) {
-        $scope.existingSections[itemIndex].fields[fieldIndex].value = '';
-    };
-
     $scope.showData = function () {
         console.log($scope.existingSections);
-    };
-
-    $scope.removeHoverItem = function () {
-        console.log(angular.element(this));
-        angular.element(this).closest('.repeater').addClass('removehovered');
     };
 
     $scope.getAllSections();

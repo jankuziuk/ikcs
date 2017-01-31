@@ -119,9 +119,9 @@
 .ikcs .ikcs-card-header {
     position: relative;
     display: block;
-    padding: 15px 30px;
-    min-height: 50px;
-    font-size: 20px;
+    padding: 10px 30px;
+    min-height: 43px;
+    font-size: 17px;
     background-color: #1976D2;
     color: #fff;
 }
@@ -467,7 +467,9 @@
 .ikcs .image-preview{
     text-align: center;
 }
-
+.ikcs .image-preview{
+    padding: 10px;
+}
 .ikcs .no-image-view .dashicons{
     font-size: 80px;
     width: auto;
@@ -1150,6 +1152,11 @@
 .ikcs .display-table .table-col.pd-left-only{
     padding-right: 0;
     padding-left: 10px;
+}
+
+.ikcs .display-table .table-col.table-col-trash{
+    width: 50px;
+    text-align: right;
 }
 .ikcs .table-col.v-top{
     vertical-align: top;

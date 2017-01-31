@@ -1,0 +1,6 @@
+<div data-ng-if="field.field_options.length>0">
+    <select data-ng-model="field.value" class="form-control form-control-sm">
+        <option value="{{ option.value }}" data-ng-repeat="(checkboxIndex, option) in field.field_options">{{ option.label }}</option>
+    </select>
+</div>
+<div data-ng-if="!field.field_options.length">{{ languages.name_value_not_defined }}</div>

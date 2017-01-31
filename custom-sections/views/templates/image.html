@@ -1,0 +1,41 @@
+<div class="mp-image">
+    <div class="image-view without-pd">
+        <div class="image-view-panel">
+            <div class="image-view-label">{{ languages.select_image }}</div>
+            <div data-ng-show="field.has_attachment" class="image-view-actions">
+                <button
+                        type="button"
+                        data-ng-click="remove_img(field)"
+                        class="ikcs-btn ikcs-btn-dash ikcs-btn-trash"
+                        data-balloon="{{ languages.remove_image }}"
+                        data-balloon-pos="down"
+                >
+                    <i class="dashicons dashicons-trash"></i>
+                </button>
+                <button
+                        type="button"
+                        data-ng-click="upload_img(field)"
+                        class="ikcs-btn ikcs-btn-dash"
+                        data-balloon="{{ languages.edit_image }}"
+                        data-balloon-pos="down"
+                >
+                    <i class="dashicons dashicons-edit"></i>
+                </button>
+            </div>
+        </div>
+        <div class="no-image-view" data-ng-show="!field.has_attachment">
+            <i class="dashicons dashicons-format-image"></i>
+        </div>
+        <div class="image-preview" data-ng-show="field.has_attachment">
+            <img data-ng-src="{{ field.attachment_url }}" data-ng-model="field.attachment_url" alt="" />
+        </div>
+    </div>
+    <input type="hidden" data-ng-model="field.attachment_id">
+    <button
+            type="button"
+            class="ikcs-btn ikcs-btn-block"
+            data-ng-show="!field.has_attachment"
+            data-ng-click="upload_img(field)">
+        {{ languages.add_image }}
+    </button>
+</div>

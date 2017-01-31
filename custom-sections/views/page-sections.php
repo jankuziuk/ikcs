@@ -31,10 +31,10 @@
                                         <div class="image-view without-pd">
                                             <div class="image-view-panel">
                                                 <div class="image-view-label"><?php echo __( 'Wybierz obrzek', 'ikcs-trans' ); ?></div>
-                                                <div data-ng-show="item.settings.bg_img_url != ''" class="image-view-actions">
+                                                <div data-ng-show="item.settings.has_attachment" class="image-view-actions">
                                                     <button
                                                         type="button"
-                                                        data-ng-click="remove_image($index)"
+                                                        data-ng-click="remove_img(item.settings)"
                                                         class="ikcs-btn ikcs-btn-dash ikcs-btn-trash"
                                                         data-balloon="<?php echo __( 'Usuń obrazek', 'ikcs-trans' ); ?>"
                                                         data-balloon-pos="down"
@@ -43,7 +43,7 @@
                                                     </button>
                                                     <button
                                                         type="button"
-                                                        data-ng-click="upload_image($index)"
+                                                        data-ng-click="upload_img(item.settings)"
                                                         class="ikcs-btn ikcs-btn-dash"
                                                         data-balloon="<?php echo __( 'Edytuj obrazek', 'ikcs-trans' ); ?>"
                                                         data-balloon-pos="down"
@@ -52,22 +52,22 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="no-image-view" data-ng-show="item.settings.bg_img_url == ''">
+                                            <div class="no-image-view" data-ng-show="!item.settings.has_attachment">
                                                 <i class="dashicons dashicons-format-image"></i>
                                             </div>
-                                            <div class="image-preview" data-ng-show="item.settings.bg_img_url != ''">
-                                                <img data-ng-src="{{ item.settings.bg_img_url }}" data-ng-model="item.settings.bg_img_url" alt="" />
+                                            <div class="image-preview" data-ng-show="item.settings.has_attachment">
+                                                <img data-ng-src="{{ item.settings.attachment_url }}" data-ng-model="item.settings.attachment_url" alt="" />
                                             </div>
                                         </div>
-                                        <input type="hidden" data-ng-model="item.settings.bg_img_id">
+                                        <input type="hidden" data-ng-model="item.settings.attachment_id">
                                         <button
                                             type="button"
                                             class="ikcs-btn ikcs-btn-block"
-                                            data-ng-show="item.settings.bg_img_url == ''"
-                                            data-ng-click="upload_image($index)">
+                                            data-ng-show="!item.settings.has_attachment"
+                                            data-ng-click="upload_img(item.settings)">
                                             <?php echo __( 'Dodaj obrazek', 'ikcs-trans' ); ?>
                                         </button>
-                                        <div class="image-view without-pd" data-ng-show="item.settings.bg_img_url != ''">
+                                        <div class="image-view without-pd" data-ng-show="item.settings.has_attachment">
                                             <div class="image-view-panel">
                                                 <div class="image-view-label"><?php echo __( 'Ustawienia tła', 'ikcs-trans' ); ?></div>
                                             </div>
@@ -263,10 +263,12 @@
                     <div data-ng-if="field.type == 'text' || field.type == 'tel' || field.type == 'email' || field.type == 'number'" data-ng-include="'<?php echo $tmpPath; ?>input.html'"></div>
                     <div data-ng-if="field.type == 'link'" data-ng-include="'<?php echo $tmpPath; ?>link.html'"></div>
                     <div data-ng-if="field.type == 'textarea'" data-ng-include="'<?php echo $tmpPath; ?>textarea.html'"></div>
+                    <div data-ng-if="field.type == 'select'" data-ng-include="'<?php echo $tmpPath; ?>select.html'"></div>
                     <div data-ng-if="field.type == 'checkbox'" data-ng-include="'<?php echo $tmpPath; ?>checkbox.html'"></div>
                     <div data-ng-if="field.type == 'radio'" data-ng-include="'<?php echo $tmpPath; ?>radio.html'"></div>
                     <div data-ng-if="field.type == 'trueorfalse'" data-ng-include="'<?php echo $tmpPath; ?>trueorfalse.html'"></div>
                     <div data-ng-if="field.type == 'fa'" data-ng-include="'<?php echo $tmpPath; ?>fa.html'"></div>
+                    <div data-ng-if="field.type == 'image'" data-ng-include="'<?php echo $tmpPath; ?>image.html'"></div>
 
                     <div ng-if="field.type == 'repeater_object'" class="repeater-items">
                         <div class="mp-inner-title">
@@ -289,7 +291,7 @@
                                 <div class="remove-repeater-item">
                                     <button
                                         type="button"
-                                        data-ng-click="removeItem(parent, $index)"
+                                        data-ng-click="removeRepeaterItem(parent, $index)"
                                         class="ikcs-btn ikcs-btn-dash ikcs-btn-trash"
                                         data-balloon="<?php echo __( 'Usuń', 'ikcs-trans' ); ?>"
                                         data-balloon-pos="down"
@@ -320,7 +322,11 @@
                     "select_icon": "<?php echo __( 'Wybierz ikonę', 'ikcs-trans' ); ?>",
                     "edit_icon": "<?php echo __( 'Zmień ikonę', 'ikcs-trans' ); ?>",
                     "remove_icon": "<?php echo __( 'Usuń ikonę', 'ikcs-trans' ); ?>",
-                    "name_value_not_defined": "<?php echo __( 'Nie zdefiniowałeś elementów', 'ikcs-trans' ); ?>"
+                    "name_value_not_defined": "<?php echo __( 'Nie zdefiniowałeś elementów', 'ikcs-trans' ); ?>",
+                    "select_image": "<?php echo __( 'Wybierz obrzek', 'ikcs-trans' ); ?>",
+                    "remove_image": "<?php echo __( 'Usuń obrazek', 'ikcs-trans' ); ?>",
+                    "edit_image": "<?php echo __( 'Edytuj obrazek', 'ikcs-trans' ); ?>",
+                    "add_image": "<?php echo __( 'Dodaj obrazek', 'ikcs-trans' ); ?>"
                 }
             </script>
 

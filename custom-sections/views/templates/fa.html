@@ -9,7 +9,7 @@
     <button
         type="button"
         class="ikcs-btn fa_field-select-icon"
-        data-ng-click="showSelectFaIcon('.fa_field-popup', itemIndex, fieldIndex)">
+        data-ng-click="showSelectFaIcon('.fa_field-popup', field)">
         <span data-ng-if="field.value == ''">{{ languages.select_icon }}</span>
         <span data-ng-if="field.value != ''">{{ languages.edit_icon }}</span>
     </button>
@@ -22,7 +22,7 @@
         {{ field.value }}
         <button
                 type="button"
-                data-ng-click="removeFaIcon(itemIndex, fieldIndex)"
+                data-ng-click="removeFaIcon(field)"
                 class="ikcs-btn ikcs-btn-dash ikcs-btn-trash"
                 data-balloon="{{ languages.remove_icon }}"
                 data-balloon-pos="down"
