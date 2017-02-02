@@ -1,6 +1,11 @@
-<input
-    type="text"
-    data-ng-model="field.value"
-    class="form-control form-control-sm"
-    id="field_{{ item.id }}_{{ field.id }}"
-/>
+<div class="field-input-wr">
+    <input
+        type="text"
+        data-ng-model="field.value"
+        class="form-control form-control-sm form-control-padding-right"
+        id="field_{{ item.id }}_{{ field.id }}"
+    />
+    <div class="field-input-icon">
+        <i class="dashicons dashicons-admin-site"></i>
+    </div>
+</div>

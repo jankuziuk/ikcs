@@ -904,6 +904,32 @@
     color: #1976D2;
 }
 
+.ikcs .field-input-wr{
+    position: relative;
+}
+
+.ikcs .field-input-icon{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    width: 41px;
+    text-align: center;
+    -moz-transform: translate3d(0, -50%, 0);
+    -webkit-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+}
+
+.ikcs .field-input-icon i{
+    width: auto;
+    height: auto;
+    font-size: 24px;
+    -webkit-transition: all ease-in-out .15s;
+    -o-transition: all ease-in-out .15s;
+    transition: all ease-in-out .15s;
+}
+
 .ikcs .form-control {
     padding: 10px 15px !important;
     font-size: 18px;
@@ -922,6 +948,14 @@
 .ikcs .form-control.form-control-sm{
     padding: 6px 12px !important;
     font-size: 15px;
+}
+
+.ikcs .form-control:focus ~ .field-input-icon i{
+    color: #1976D2;
+}
+
+.ikcs .form-control.form-control-sm.form-control-padding-right{
+    padding-right: 41px !important;
 }
 
 .ikcs .form-control:not(textarea) {
