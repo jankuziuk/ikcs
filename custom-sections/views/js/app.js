@@ -401,6 +401,10 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         angular.element(className).hide();
     };
 
+    $scope.submitPageIKSCForm = function () {
+
+    };
+
     $scope.showData = function () {
         console.log($scope.existingSections);
     };
