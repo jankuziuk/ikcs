@@ -4,6 +4,7 @@
 
 <div data-ng-app="ikcs" class="ikcs">
     <div data-ng-controller="ikcsPageRendering" class="ng-cloak" data-ng-cloak>
+        <input type="hidden" name="existingSections" value="{{existingSections}}" />
         <div class="ikcs-page">
 <!--            wp_get_attachment_image_src( $attachment_id = 19, $size = 'full')-->
             <div class="sections-list" ui-sortable="sortableOptions">
@@ -17,7 +18,9 @@
                                         <div class="form-group">
                                             <label class="fg-label"><?php echo __( 'Wybierz rodzaj tła', 'ikcs-trans' ); ?></label>
                                             <select
+                                                name="ikcs[{{itemIndex}}][settings][bg_type]"
                                                 data-ng-model="item.settings.bg_type"
+                                                value="{{item.settings.bg_type}}"
                                                 data-ng-change="initColorPicker(item.settings.bg_type, $index)"
                                                 class="form-control form-control-sm"
                                             >
@@ -59,7 +62,7 @@
                                                 <img data-ng-src="{{ item.settings.attachment_url }}" data-ng-model="item.settings.attachment_url" alt="" />
                                             </div>
                                         </div>
-                                        <input type="hidden" data-ng-model="item.settings.attachment_id">
+                                        <input type="hidden" name="ikcs[{{itemIndex}}][settings][attachment_id]" value="{{item.settings.attachment_id}}" data-ng-model="item.settings.attachment_id">
                                         <button
                                             type="button"
                                             class="ikcs-btn ikcs-btn-block"
@@ -77,7 +80,11 @@
                                                         <label class="fg-label"><?php echo __( 'W pionie:', 'ikcs-trans' ); ?></label>
                                                     </div>
                                                     <div class="table-col bg-input">
-                                                        <select data-ng-model="item.settings.bg_pos_ver" class="form-control form-control-sm">
+                                                        <select
+                                                            name="ikcs[{{itemIndex}}][settings][bg_pos_ver]"
+                                                            data-ng-model="item.settings.bg_pos_ver"
+                                                            class="form-control form-control-sm"
+                                                        >
                                                             <option value="center" selected="selected"><?php echo __( 'Wyśrodkować', 'ikcs-trans' ); ?></option>
                                                             <option value="top"><?php echo __( 'W góre', 'ikcs-trans' ); ?></option>
                                                             <option value="bottom"><?php echo __( 'W doł', 'ikcs-trans' ); ?></option>
@@ -89,7 +96,11 @@
                                                         <label class="fg-label"><?php echo __( 'W poziomie:', 'ikcs-trans' ); ?></label>
                                                     </div>
                                                     <div class="table-col bg-input">
-                                                        <select data-ng-model="item.settings.bg_pos_hor" class="form-control form-control-sm">
+                                                        <select
+                                                            name="ikcs[{{itemIndex}}][settings][bg_pos_hor]"
+                                                            data-ng-model="item.settings.bg_pos_hor"
+                                                            class="form-control form-control-sm"
+                                                        >
                                                             <option value="center" selected="selected"><?php echo __( 'Wyśrodkować', 'ikcs-trans' ); ?></option>
                                                             <option value="left"><?php echo __( 'Do lewej', 'ikcs-trans' ); ?></option>
                                                             <option value="right"><?php echo __( 'Do prawej', 'ikcs-trans' ); ?></option>
@@ -101,7 +112,11 @@
                                                         <label class="fg-label"><?php echo __( 'Skalowanie:', 'ikcs-trans' ); ?></label>
                                                     </div>
                                                     <div class="table-col bg-input">
-                                                        <select data-ng-model="item.settings.bg_size" class="form-control form-control-sm">
+                                                        <select
+                                                            name="ikcs[{{itemIndex}}][settings][bg_size]"
+                                                            data-ng-model="item.settings.bg_size"
+                                                            class="form-control form-control-sm"
+                                                        >
                                                             <option value="repeat" selected="selected"><?php echo __( 'Repeat', 'ikcs-trans' ); ?></option>
                                                             <option value="no-repeat"><?php echo __( 'No repeat', 'ikcs-trans' ); ?></option>
                                                             <option value="cover"><?php echo __( 'Cover', 'ikcs-trans' ); ?></option>
@@ -113,7 +128,12 @@
                                         </div>
                                     </div>
                                     <div class="colorpicker" data-ng-show="item.settings.bg_type == 'color'">
-                                        <input type="text" name="bg_color_{{ $index }}" id="bg_color_{{ $index }}" class="form-control form-control-sm" data-ng-model="item.settings.bg_color" />
+                                        <input
+                                            type="text"
+                                            name="ikcs[{{itemIndex}}][settings][bg_color]"
+                                            class="form-control form-control-sm"
+                                            data-ng-model="item.settings.bg_color"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +145,14 @@
                                             <label class="fg-label" for="m_top"><?php echo __( 'Górny:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="m_top" data-ng-model="item.settings.margin.top" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="m_top"
+                                                name="ikcs[{{itemIndex}}][settings][margin][top]"
+                                                data-ng-model="item.settings.margin.top"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -134,7 +161,14 @@
                                             <label class="fg-label" for="m_left"><?php echo __( 'Lewy:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="m_left" data-ng-model="item.settings.margin.left" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="m_left"
+                                                data-ng-model="item.settings.margin.left"
+                                                name="ikcs[{{itemIndex}}][settings][margin][left]"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -143,7 +177,14 @@
                                             <label class="fg-label" for="m_right"><?php echo __( 'Prawy:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="m_right" data-ng-model="item.settings.margin.right" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="m_right"
+                                                data-ng-model="item.settings.margin.right"
+                                                name="ikcs[{{itemIndex}}][settings][margin][right]"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -152,7 +193,14 @@
                                             <label class="fg-label" for="m_bottom"><?php echo __( 'Dolny:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="m_bottom" data-ng-model="item.settings.margin.bottom" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="m_bottom"
+                                                data-ng-model="item.settings.margin.bottom"
+                                                name="ikcs[{{itemIndex}}][settings][margin][bottom]"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -166,7 +214,14 @@
                                             <label class="fg-label" for="p_top"><?php echo __( 'Górny:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="p_top" data-ng-model="item.settings.padding.top" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="p_top"
+                                                data-ng-model="item.settings.padding.top"
+                                                name="ikcs[{{itemIndex}}][settings][padding][top]"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -175,7 +230,14 @@
                                             <label class="fg-label" for="p_left"><?php echo __( 'Lewy:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="p_left" data-ng-model="item.settings.padding.left" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="p_left"
+                                                data-ng-model="item.settings.padding.left"
+                                                name="ikcs[{{itemIndex}}][settings][padding][left]"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -184,7 +246,14 @@
                                             <label class="fg-label" for="p_right"><?php echo __( 'Prawy:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="p_right" data-ng-model="item.settings.padding.right" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="p_right"
+                                                data-ng-model="item.settings.padding.right"
+                                                name="ikcs[{{itemIndex}}][settings][padding][right]"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -193,7 +262,14 @@
                                             <label class="fg-label" for="p_bottom"><?php echo __( 'Dolny:', 'ikcs-trans' ); ?></label>
                                         </div>
                                         <div class="table-col mp-input">
-                                            <input type="number" min="0" class="form-control form-control-sm" id="p_bottom" data-ng-model="item.settings.padding.bottom" />
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                class="form-control form-control-sm"
+                                                id="p_bottom"
+                                                data-ng-model="item.settings.padding.bottom"
+                                                name="ikcs[{{itemIndex}}][settings][padding][bottom]"
+                                            />
                                         </div>
                                         <div class="table-col mp-px">px</div>
                                     </div>
@@ -329,7 +405,6 @@
                     "add_image": "<?php echo __( 'Dodaj obrazek', 'ikcs-trans' ); ?>"
                 }
             </script>
-
 
         </div>
     </div>

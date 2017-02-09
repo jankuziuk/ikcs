@@ -311,7 +311,9 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
                 id: id
             }
         }).then(function successCallback(response) {
-            $scope.existingSections.push(angular.copy(response.data.section));
+            var arr = angular.copy(response.data.section);
+            arr.field_input_name = '[fields]';
+            $scope.existingSections.push(arr);
             $scope.addNewSectionBefore = false;
         }, function errorCallback(response) {
             console.warn(response);
@@ -319,10 +321,18 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     };
 
     $scope.addRepeaterItem = function (data) {
+        console.log(data);
+        var count = 0,
+            field_input_name = '',
+            arr = [];
+
         if(typeof data.repeater_items == "undefined"){
             data.repeater_items = [];
         }
-        data.repeater_items.push(angular.copy(data.repeater_fields));
+        count = data.repeater_items.length;
+        arr = angular.copy(data.repeater_fields);
+        arr.field_input_name = field_input_name + '['+count+']';
+        data.repeater_items.push(arr);
     };
 
     $scope.removeRepeaterItem = function (array, index) {
