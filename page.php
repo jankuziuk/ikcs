@@ -19,7 +19,9 @@ get_header(); ?>
 		<?php
 		// Start the loop.
 		while ( have_posts() ) : the_post();
-
+			echo '<pre>';
+			var_dump(the_ikcs_sections());
+			echo '</pre>';
 			// Include the page content template.
 			get_template_part( 'content', 'page' );
 

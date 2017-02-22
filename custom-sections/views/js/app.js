@@ -14,6 +14,75 @@ app.config(function(toastrConfig) {
         timeOut: 5000
     });
 });
+jQuery.stringify = (function ($) {
+    var _PRIMITIVE, _OPEN, _CLOSE;
+    if (window.JSON && typeof JSON.stringify === "function")
+        return JSON.stringify;
+
+    _PRIMITIVE = /string|number|boolean|null/;
+
+    _OPEN = {
+        object: "{",
+        array: "["
+    };
+
+    _CLOSE = {
+        object: "}",
+        array: "]"
+    };
+
+    //actions to execute in each iteration
+    function action(key, value) {
+        var type = $.type(value),
+            prop = "";
+
+        //key is not an array index
+        if (typeof key !== "number") {
+            prop = '"' + key + '":';
+        }
+        if (type === "string") {
+            prop += '"' + value + '"';
+        } else if (_PRIMITIVE.test(type)) {
+            prop += value;
+        } else if (type === "array" || type === "object") {
+            prop += toJson(value, type);
+        } else return;
+        this.push(prop);
+    }
+
+    //iterates over an object or array
+    function each(obj, callback, thisArg) {
+        for (var key in obj) {
+            if (obj instanceof Array) key = +key;
+            callback.call(thisArg, key, obj[key]);
+        }
+    }
+
+    //generates the json
+    function toJson(obj, type) {
+        var items = [];
+        each(obj, action, items);
+        return _OPEN[type] + items.join(",") + _CLOSE[type];
+    }
+    var fn = function stringify(obj) {
+        if (!arguments.length) return "";
+        var type = $.type(obj);
+        if (_PRIMITIVE.test(type))
+            return (obj === null ? type : obj.toString());
+        //obj is array or object
+        return toJson(obj, type);
+    };
+    //exported function that generates the json
+    return fn
+}(jQuery));
+app.filter('json_stringify', function() {
+    return function(object) {
+        var res = jQuery.stringify(object);
+        res = res.slice(1, -1);
+        return res;
+    }
+
+});
 
 app.controller("ikcsGetSections", ['$scope', '$http', '$location', '$cookies', 'toastr', function ($scope, $http, $location, $cookies, toastr) {
     $scope.ikcsSections = [];
@@ -311,17 +380,15 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
                 id: id
             }
         }).then(function successCallback(response) {
-            var arr = angular.copy(response.data.section);
-            arr.field_input_name = '[fields]';
-            $scope.existingSections.push(arr);
+            $scope.existingSections.push(angular.copy(response.data.section));
             $scope.addNewSectionBefore = false;
         }, function errorCallback(response) {
             console.warn(response);
         });
     };
 
-    $scope.addRepeaterItem = function (data) {
-        console.log(data);
+    $scope.addRepeaterItem = function (data, parent) {
+        console.log(data, parent);
         var count = 0,
             field_input_name = '',
             arr = [];
@@ -331,7 +398,9 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
         }
         count = data.repeater_items.length;
         arr = angular.copy(data.repeater_fields);
-        arr.field_input_name = field_input_name + '['+count+']';
+        angular.forEach(arr, function(eachObj) {
+            eachObj.field_input_name = (typeof parent.fields == "undefined" ? '['+parent.length+']' : '') + (data.field_input_name ? data.field_input_name : '') + '[items]['+count+']';
+        });
         data.repeater_items.push(arr);
     };
 
@@ -446,7 +515,20 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
 
 }]);
 
-
+app.controller("ikcsSettings", ['$scope', '$http', function ($scope, $http) {
+    $http({
+        method: 'GET',
+        url: ajaxurl,
+        params: {
+            action: 'ikcs_get_langs'
+        }
+    }).then(function successCallback(response) {
+        $scope.langs = response.data;
+        console.log(response);
+    }, function errorCallback(response) {
+        console.warn(response);
+    });
+}]);
 
 jQuery.extend({
     getUrlVars: function(){

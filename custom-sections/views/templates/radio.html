@@ -2,7 +2,7 @@
     <label class="radio-item radio-inline" data-ng-repeat="(checkboxIndex, radio) in field.field_options">
         <input
                 type="radio"
-                name="field_{{ item.id }}_{{ field.id }}"
+                name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][value]"
                 data-ng-model="field.field_option_checked"
                 value="{{ radio.value }}"
         />

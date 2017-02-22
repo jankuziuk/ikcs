@@ -15,7 +15,15 @@ get_header(); ?>
 
 			<section class="content">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-				<?php the_content(); ?>
+					<?php
+
+					echo '<pre>';
+					var_dump(the_ikcs_sections());
+					echo '</pre>';
+//					get_post_meta( int $post_id, string $key = '', bool $single = false )
+					?>
+					<?php the_content(); ?>
+				<?php endwhile; endif; ?>
 			</section>
 
 			<?php if($GLOBALS['custom_options']['grid_type'] == 'two' || $GLOBALS['custom_options']['grid_type'] == 'one_right'): ?>

@@ -144,3 +144,16 @@ if($_REQUEST['action'] == "ikcs_get_fa_json") {
         wp_die();
     }
 }
+
+if($_REQUEST['action'] == "ikcs_save_post") {
+    add_action('wp_ajax_ikcs_save_post', 'ikcs_save_post_callback');
+    add_action('wp_ajax_nopriv_ikcs_save_post', 'ikcs_save_post_callback');
+
+    function ikcs_save_post_callback()
+    {
+        $IKCS = new IKCS();
+        $options = $IKCS->get_options();
+
+        wp_die();
+    }
+}

@@ -1,9 +1,10 @@
 <div class="field-input-wr">
     <input
         type="text"
+        name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][value]"
         data-ng-model="field.value"
         class="form-control form-control-sm form-control-padding-right"
-        id="field_{{ item.id }}_{{ field.id }}"
+        id="ikcs_{{itemIndex}}_fields_{{field.field_input_name}}_{{fieldIndex}}_value"
     />
     <div class="field-input-icon">
         <i class="dashicons dashicons-admin-site"></i>

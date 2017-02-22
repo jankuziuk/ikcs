@@ -20,3 +20,4 @@ if($_REQUEST['action'] == "ikcs_get_all_sections") {
         wp_die();
     }
 }
+?>

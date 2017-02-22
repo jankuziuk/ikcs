@@ -30,7 +30,7 @@
             <img data-ng-src="{{ field.attachment_url }}" data-ng-model="field.attachment_url" alt="" />
         </div>
     </div>
-    <input type="hidden" data-ng-model="field.attachment_id">
+    <input type="hidden" name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][value]" data-ng-model="field.attachment_id">
     <button
             type="button"
             class="ikcs-btn ikcs-btn-block"

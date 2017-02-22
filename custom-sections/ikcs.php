@@ -29,6 +29,7 @@ class IKCS{
             'list_url' => 'ikcs-list',
             'add_url' => 'ikcs-add',
             'edit_url' => 'ikcs-edit',
+            'settings_url' => 'ikcs-settings',
             'meta_key' => 'ikcs_fields',
             'sections_table' => 'ikcs_sections'
         );
@@ -47,6 +48,8 @@ class IKCS{
         include($this->settings['dir'] . 'core/index.php');
         include($this->settings['dir'] . 'core/controllers/sectionsListController.php');
         include($this->settings['dir'] . 'core/controllers/administrationSectionController.php');
+        include($this->settings['dir'] . 'core/controllers/settingsController.php');
+        include($this->settings['dir'] . 'frontend/index.php');
         if( is_admin() )
         {
             add_action('admin_menu', array($this,'ikcs_register_in_menu'));
@@ -135,17 +138,7 @@ class IKCS{
             if ( ! current_user_can( 'edit_post', $post_id ) )
                 return $post_id;
         }
-
-        /* OK, все чисто, можно сохранять данные. */
-
-        // Очищаем поле input.
-        $mydata = serialize( $_POST['ikcs'] );
-        echo "<pre>";
-        var_dump($_POST['ikcs']);
-        echo "</pre>";
-        die('-----------------------------------------');
-        // Обновляем данные.
-        update_post_meta( $post_id, '_my_meta_value_key', $mydata );
+        update_post_meta( $post_id, '_my_meta_value_key', serialize($_POST['ikcs']) );
     }
 
     public function render_meta_box_content(){
@@ -182,18 +175,27 @@ class IKCS{
             $this->settings['edit_url'],
             array( $this, 'render_edit_page' )
         );
+        add_submenu_page(
+            'ikcs-list',
+            __( 'Ustawienia', 'ikcs-trans' ),
+            __( 'Ustawienia', 'ikcs-trans' ),
+            'manage_options',
+            $this->settings['settings_url'],
+            array( $this, 'render_settings_page' )
+        );
     }
 
     public function render_admin_page(){
         include_once($this->settings['dir'] . 'views/index.php');
     }
-
     public function render_add_page(){
         include_once($this->settings['dir'] . 'views/add.php');
     }
-
     public function render_edit_page(){
         include_once($this->settings['dir'] . 'views/add.php');
+    }
+    public function render_settings_page(){
+        include_once($this->settings['dir'] . 'views/settings.php');
     }
 
     public function includes_files(){

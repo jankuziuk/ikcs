@@ -2,7 +2,7 @@
     <label class="checkbox-item checkbox-inline" data-ng-repeat="(checkboxIndex, checkbox) in field.field_options">
         <input
             type="checkbox"
-            name="field_{{ item.id }}_{{ field.id }}_{{ checkbox.value }}"
+            name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][value]"
             data-ng-model="checkbox.checked"
             value="{{ checkbox.value }}"
             data-ng-checked="checkbox.checked"

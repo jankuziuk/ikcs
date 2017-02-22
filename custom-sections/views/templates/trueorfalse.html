@@ -1,7 +1,7 @@
 <label class="switch-item switch-inline">
     <input
             type="checkbox"
-            name="field_{{ item.id }}_{{ field.id }}"
+            name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][value]"
             data-ng-model="field.field_option_checked"
             data-ng-checked="field.field_option_checked"
     />

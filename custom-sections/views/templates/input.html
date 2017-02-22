@@ -1,13 +1,12 @@
 <div class="field-input-wr">
     <input
             type="{{ field.type }}"
-            name="field_{{ item.id }}_{{ field.id }}"
             validate-on="field_{{ item.id }}_{{ field.id }}"
             data-ng-model="field.value"
             class="form-control form-control-sm"
             data-ng-class="field.type == 'tel' || field.type == 'email' ? 'form-control-padding-right' : ''"
             id="field_{{ item.id }}_{{ field.id }}"
-            name="ikcs[{{itemIndex}}]{{item.field_input_name}}[{{fieldIndex}}][value]"
+            name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][value]"
             required
     />
     <div class="field-input-icon">

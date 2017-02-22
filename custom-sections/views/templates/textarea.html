@@ -2,5 +2,6 @@
     class="form-control form-control-sm"
     data-ng-model="field.value"
     data-ng-attr-rows="{{field.textarea_rows || '4'}}"
-    id="field_{{ item.id }}_{{ field.id }}"
+    id="ikcs_{{itemIndex}}_fields_{{field.field_input_name}}_{{fieldIndex}}_value"
+    name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][value]"
 ></textarea>

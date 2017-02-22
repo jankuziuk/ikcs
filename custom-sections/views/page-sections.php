@@ -4,11 +4,12 @@
 
 <div data-ng-app="ikcs" class="ikcs">
     <div data-ng-controller="ikcsPageRendering" class="ng-cloak" data-ng-cloak>
-        <input type="hidden" name="existingSections" value="{{existingSections}}" />
+        <input type="hidden" name="existingSections" value="{{ existingSections|json_stringify }}" />
         <div class="ikcs-page">
 <!--            wp_get_attachment_image_src( $attachment_id = 19, $size = 'full')-->
             <div class="sections-list" ui-sortable="sortableOptions">
                 <div class="section-item" data-ng-repeat="(itemIndex, item) in existingSections" data-as-sortable-item>
+                    <input type="hidden" name="ikcs[{{itemIndex}}][id]" value="{{ item.section_id }}">
                     <div class="mp-area display-table">
                         <div class="table-row">
                             <div class="table-col background v-top" data-ng-if="item.settings.show_select_bg">
@@ -332,7 +333,7 @@
 
             <script type="text/ng-template" id="item.html">
                 <div class="table-col table-fields-label">
-                    <label class="fg-label" ng-if="field.type != 'repeater_object'" for="field_{{ item.id }}_{{ field.id }}">{{ field.label }}</label>
+                    <label class="fg-label" ng-if="field.type != 'repeater_object'" for="ikcs_{{itemIndex}}_fields_{{field.field_input_name}}_{{fieldIndex}}_value">{{ field.label }}</label>
                 </div>
                 <div class="table-col">
 
@@ -345,14 +346,14 @@
                     <div data-ng-if="field.type == 'trueorfalse'" data-ng-include="'<?php echo $tmpPath; ?>trueorfalse.html'"></div>
                     <div data-ng-if="field.type == 'fa'" data-ng-include="'<?php echo $tmpPath; ?>fa.html'"></div>
                     <div data-ng-if="field.type == 'image'" data-ng-include="'<?php echo $tmpPath; ?>image.html'"></div>
-
+                    <input type="hidden" name="ikcs[{{itemIndex}}][fields]{{field.field_input_name}}[{{fieldIndex}}][id]" value="{{ field.id }}">
                     <div ng-if="field.type == 'repeater_object'" class="repeater-items">
                         <div class="mp-inner-title">
                             {{ field.label }}
                         </div>
                         <div ui-sortable="sortableOptions">
                             <div class="repeater"
-                                 data-ng-init="parent = field.repeater_items"
+                                 data-ng-init="field_input_name = field.field_input_name; parent = field.repeater_items"
                                  data-ng-repeat="r_items in field.repeater_items"
                             >
                                 <div class="counter"><span>{{ $index + 1 }}</span></div>
@@ -381,7 +382,7 @@
                             <button
                                 type="button"
                                 class="ikcs-btn ikcs-btn-dash"
-                                data-ng-click="addRepeaterItem(field)"
+                                data-ng-click="addRepeaterItem(field, parent)"
                                 data-balloon="<?php echo __( 'Dodaj element do: ', 'ikcs-trans' ); ?> '{{ field.label }}'"
                                 data-balloon-pos="down"
                             >
