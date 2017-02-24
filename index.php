@@ -16,7 +16,7 @@ get_header(); ?>
 			<section class="content">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 					<?php
-						write_iksc_sections();
+						write_iksc_sections(1);
 					?>
 					<?php the_content(); ?>
 				<?php endwhile; endif; ?>
