@@ -46,7 +46,7 @@
                                     <div
                                         class="ikcs_items"
                                         data-ng-if="ikcsAdd.fields.length > 0"
-                                        ui-sortable="sortableOptions"
+                                        ui-sortable="sortableOptions[$index]"
                                         ng-model="ikcsAdd.fields"
                                         ng-init="parent = ikcsAdd"
                                     >
@@ -54,7 +54,7 @@
                                             class="ikcs_item ikcs-card"
                                             data-ng-repeat="item in ikcsAdd.fields"
                                             data-ng-include="'item_config.html'"
-                                            data-as-sortable-item
+                                            class="sortable-item"
                                         ></div>
                                     </div>
                                     <div class="add-new-item">
@@ -300,12 +300,13 @@
                                 <div
                                     class="ikcs_repeater_items"
                                     ui-sortable="sortableOptions"
+                                    ng-model="item.repeater_fields"
                                     ng-init="parent = item"
                                 >
                                     <div
                                         data-ng-repeat="item in item.repeater_fields"
                                         data-ng-include="'item_config.html'"
-                                        data-as-sortable-item
+                                        class="sortable-item"
                                     ></div>
                                 </div>
                                 <div class="add-new-item">

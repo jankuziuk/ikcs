@@ -16,11 +16,7 @@ get_header(); ?>
 			<section class="content">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 					<?php
-
-					echo '<pre>';
-					var_dump(the_ikcs_sections());
-					echo '</pre>';
-//					get_post_meta( int $post_id, string $key = '', bool $single = false )
+						write_iksc_sections();
 					?>
 					<?php the_content(); ?>
 				<?php endwhile; endif; ?>

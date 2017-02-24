@@ -1,11 +1,13 @@
 <?php
     $tmpPath = ikcs_views_path() . "/templates/";
+    global $post;
+    $id = $post->ID;
 ?>
 
 <div data-ng-app="ikcs" class="ikcs">
     <div data-ng-controller="ikcsPageRendering" class="ng-cloak" data-ng-cloak>
-        <input type="hidden" name="existingSections" value="{{ existingSections|json_stringify }}" />
         <div class="ikcs-page">
+            <input type="hidden" name="post_id" id="post_id" value="<?php echo $id; ?>">
 <!--            wp_get_attachment_image_src( $attachment_id = 19, $size = 'full')-->
             <div class="sections-list" ui-sortable="sortableOptions">
                 <div class="section-item" data-ng-repeat="(itemIndex, item) in existingSections" data-as-sortable-item>

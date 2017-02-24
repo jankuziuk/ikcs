@@ -122,37 +122,35 @@ if($_REQUEST['action'] == "ikcs_get_fa_json") {
             $icons['fa'][$key]['fa_value'] = $match[1];
         }
         echo json_encode($icons);
-
-//        $IKCS = new IKCS();
-//        $options = $IKCS->get_options();
-//        $url = $options['dir'] . 'helpers/tsconfig.json';
-//        $json =   file_get_contents($url,0,null,null);
-//
-//        if($json != false){
-//            $data['status'] = 'OK';
-//            $falist = json_decode($json,true);
-//            foreach ($falist['icons'] as $key=>$val){
-//                $data['fa'][$key]['fa_key'] = 'fa-' . $val['id'];
-//                $data['fa'][$key]['fa_value'] = $val['id'];
-//                $data['fa'][$key]['fa_categories'] = $val['categories'];
-//            }
-//        }
-//        else{
-//            $data['status'] = 'FAIL';
-//        }
-//        echo json_encode($data);
         wp_die();
     }
 }
 
-if($_REQUEST['action'] == "ikcs_save_post") {
-    add_action('wp_ajax_ikcs_save_post', 'ikcs_save_post_callback');
-    add_action('wp_ajax_nopriv_ikcs_save_post', 'ikcs_save_post_callback');
+if($_REQUEST['action'] == "ikcs_save_sections") {
+    add_action('wp_ajax_ikcs_save_sections', 'ikcs_save_sections_callback');
+    add_action('wp_ajax_nopriv_ikcs_save_sections', 'ikcs_save_sections_callback');
 
-    function ikcs_save_post_callback()
+    function ikcs_save_sections_callback()
     {
         $IKCS = new IKCS();
         $options = $IKCS->get_options();
+        $post_id = $_POST['post_id'];
+        $data = json_decode(stripslashes($_POST['data']));
+        update_post_meta($post_id, 'ikcs_post_meta_key', $data);
+//        global $wpdb;
+//        $table_name_sections = $wpdb->prefix . 'ikcs_postmeta';
+//        $query = $wpdb->update($table_name_sections,
+//            array(
+//                'section_id' => $data->section_id,
+//                'section_name' => $data->name,
+//                'section_opions' => serialize($data->settings),
+//                'section_value' => serialize($data->fields)
+//            ), array(
+//                'id' => $request->id
+//            ), array(
+//                '%s', '%s', '%s', '%s'
+//            )
+//        );
 
         wp_die();
     }

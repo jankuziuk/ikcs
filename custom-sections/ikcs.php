@@ -14,13 +14,9 @@
  */
 
 class IKCS{
-
-//    var $settings;
-
     private $settings = array();
 
     /* Constructor */
-
     function __construct()
     {
         $this->settings = array(
@@ -38,8 +34,7 @@ class IKCS{
 
         add_action('init', array($this, 'init'), 1);
         add_action('init', array($this, 'ikcs_create_table'), 1);
-        add_action( 'add_meta_boxes', array( $this, 'ikcs_add_meta_box' ) );
-        add_action( 'save_post', array( $this, 'save' ) );
+        add_action('add_meta_boxes', array( $this, 'ikcs_add_meta_box' ));
     }
 
     function init()
@@ -114,40 +109,8 @@ class IKCS{
         }
     }
 
-    public function save( $post_id ) {
-        // Проверяем установлен ли nonce.
-        if ( ! isset( $_POST['ikcs_inner_custom_box_nonce'] ) )
-            return $post_id;
-
-        $nonce = $_POST['ikcs_inner_custom_box_nonce'];
-
-        // Проверяем корректен ли nonce.
-        if ( ! wp_verify_nonce( $nonce, 'ikcs_inner_custom_box' ) )
-            return $post_id;
-        // Если это автосохранение ничего не делаем.
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
-            return $post_id;
-        // Проверяем права пользователя.
-        if ( 'page' == $_POST['post_type'] ) {
-
-            if ( ! current_user_can( 'edit_page', $post_id ) )
-                return $post_id;
-
-        } else {
-
-            if ( ! current_user_can( 'edit_post', $post_id ) )
-                return $post_id;
-        }
-        update_post_meta( $post_id, '_my_meta_value_key', serialize($_POST['ikcs']) );
-    }
-
     public function render_meta_box_content(){
-        wp_nonce_field( 'ikcs_inner_custom_box', 'ikcs_inner_custom_box_nonce' );
         include($this->settings['dir'] . 'views/page-sections.php');
-    }
-
-    function ikcs_save_post(){
-        die('EEEEE');
     }
 
     function ikcs_register_in_menu()
@@ -219,7 +182,6 @@ function IKCS()
 
     return $IKCS;
 }
-
 
 // initialize
 IKCS();

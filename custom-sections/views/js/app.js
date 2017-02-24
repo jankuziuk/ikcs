@@ -14,75 +14,6 @@ app.config(function(toastrConfig) {
         timeOut: 5000
     });
 });
-jQuery.stringify = (function ($) {
-    var _PRIMITIVE, _OPEN, _CLOSE;
-    if (window.JSON && typeof JSON.stringify === "function")
-        return JSON.stringify;
-
-    _PRIMITIVE = /string|number|boolean|null/;
-
-    _OPEN = {
-        object: "{",
-        array: "["
-    };
-
-    _CLOSE = {
-        object: "}",
-        array: "]"
-    };
-
-    //actions to execute in each iteration
-    function action(key, value) {
-        var type = $.type(value),
-            prop = "";
-
-        //key is not an array index
-        if (typeof key !== "number") {
-            prop = '"' + key + '":';
-        }
-        if (type === "string") {
-            prop += '"' + value + '"';
-        } else if (_PRIMITIVE.test(type)) {
-            prop += value;
-        } else if (type === "array" || type === "object") {
-            prop += toJson(value, type);
-        } else return;
-        this.push(prop);
-    }
-
-    //iterates over an object or array
-    function each(obj, callback, thisArg) {
-        for (var key in obj) {
-            if (obj instanceof Array) key = +key;
-            callback.call(thisArg, key, obj[key]);
-        }
-    }
-
-    //generates the json
-    function toJson(obj, type) {
-        var items = [];
-        each(obj, action, items);
-        return _OPEN[type] + items.join(",") + _CLOSE[type];
-    }
-    var fn = function stringify(obj) {
-        if (!arguments.length) return "";
-        var type = $.type(obj);
-        if (_PRIMITIVE.test(type))
-            return (obj === null ? type : obj.toString());
-        //obj is array or object
-        return toJson(obj, type);
-    };
-    //exported function that generates the json
-    return fn
-}(jQuery));
-app.filter('json_stringify', function() {
-    return function(object) {
-        var res = jQuery.stringify(object);
-        res = res.slice(1, -1);
-        return res;
-    }
-
-});
 
 app.controller("ikcsGetSections", ['$scope', '$http', '$location', '$cookies', 'toastr', function ($scope, $http, $location, $cookies, toastr) {
     $scope.ikcsSections = [];
@@ -197,14 +128,11 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
         }
     };
     $scope.imageSizes = imageSizes;
-
-    console.log($scope.imageSizes);
-
     $scope.sortableOptions = {
+        items: '.sortable-item',
         cursor: "move",
         axis: 'y'
     };
-
     $scope.addNewSection = function () {
         var section={
             id: '',
@@ -216,7 +144,6 @@ app.controller("ikcsAddEditSection", ['$scope', '$http', 'toastr', function ($sc
         $scope.ikcsAdd.fields.push(section);
         console.log($scope.ikcsAdd);
     };
-
     $scope.addNewSubSection = function (data) {
         var section={
             id: '',
@@ -479,6 +406,28 @@ app.controller("ikcsPageRendering", ['$scope', '$http', function ($scope, $http)
     };
 
     $scope.getAllSections();
+
+    jQuery('form#post').on('submit', function (e) {
+        var $form = jQuery(this);
+        if($scope.existingSections.length > 0){
+            e.preventDefault();
+            jQuery.ajax({
+                method: "POST",
+                url: ajaxurl,
+                data: {
+                    action: "ikcs_save_sections",
+                    post_id: jQuery('#post_id').val(),
+                    data: JSON.stringify($scope.existingSections)
+                }
+            }).done(function (response) {
+
+            }).fail(function () {
+
+            }).always(function () {
+
+            });
+        }
+    });
 
     jQuery('body').on('click', '[data-show-popup]', function (e) {
         e.preventDefault();
